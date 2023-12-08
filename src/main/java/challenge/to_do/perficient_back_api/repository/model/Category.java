@@ -24,7 +24,20 @@ public class Category {
         this.tasks = tasks;
     }
 
+    public Category(String name, Color color, Set<Task> tasks){
+        this.name = name;
+        this.color = color;
+        this.tasks = tasks;
+    }
+
     public Category() {
+    }
+
+    public Category(Category category){
+        this.id = category.getId();
+        this.name = category.getName();
+        this.color = category.getColor();
+        this.tasks = category.getTasks();
     }
 
     public long getId() {

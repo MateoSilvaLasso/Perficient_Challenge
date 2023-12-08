@@ -18,10 +18,21 @@ public class Status {
     public Status() {
     }
 
+    public Status(Status status){
+        this.id= status.getId();
+        this.name= status.getName();
+        this.tasks = status.getTasks();
+    }
+
     public Status(Long id, String name, Set<Task> tasks) {
         this.id = id;
         this.name = name;
         this.tasks = tasks;
+    }
+
+    public Status(String name, Set<Task> tasks){
+        this.name= name;
+        this.tasks=tasks;
     }
 
     public Long getId() {

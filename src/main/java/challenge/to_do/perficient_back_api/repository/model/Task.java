@@ -25,8 +25,25 @@ public class Task {
     public Task() {
     }
 
+    public Task(Task task){
+        this.id = task.getId();
+        this.beginTask = task.getBeginTask();
+        this.endtask = task.getEndtask();
+        this.information = task.getInformation();
+        this.category = task.getCategory();
+        this.status =  task.getStatus();
+    }
+
     public Task(Long id, Date beginTask, Date endtask, String information, Category category, Status status) {
         this.id = id;
+        this.beginTask = beginTask;
+        this.endtask = endtask;
+        this.information = information;
+        this.category = category;
+        this.status = status;
+    }
+
+    public Task(Date beginTask, Date endtask, String information, Category category, Status status){
         this.beginTask = beginTask;
         this.endtask = endtask;
         this.information = information;
