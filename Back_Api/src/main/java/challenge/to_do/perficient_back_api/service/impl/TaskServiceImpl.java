@@ -38,7 +38,7 @@ public class TaskServiceImpl implements ITaskService {
     }
 
     @Override
-    public Optional<List<Task>> findTaskByStatus(Long id) {
+    public String findTaskByStatus(Long id) {
         return taskRepository.findTaskByStatus(id);
     }
 
@@ -58,8 +58,8 @@ public class TaskServiceImpl implements ITaskService {
     }
 
     @Override
-    public Optional<List<Task>> findPendingTaskByCategory() {
-        return taskRepository.findPendingTaskByCategory();
+    public Optional<List<Task>> findPendingTaskByCategory(Long id) {
+        return taskRepository.findPendingTaskByCategory(id);
     }
 
     @Override
@@ -72,5 +72,10 @@ public class TaskServiceImpl implements ITaskService {
 
         Date begin = new Date();
         return Optional.ofNullable(taskRepository.findTasksDueInRange(begin, end));
+    }
+
+    @Override
+    public Iterable<Task> getAll(){
+        return this.taskRepository.findAll();
     }
 }
