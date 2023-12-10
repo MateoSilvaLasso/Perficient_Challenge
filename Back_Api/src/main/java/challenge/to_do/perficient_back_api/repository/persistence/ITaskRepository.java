@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,5 +28,8 @@ public interface ITaskRepository extends CrudRepository<Task, Long> {
 
     @Query("SELECT t FROM Task t WHERE t.status.id = :status_id")
     Optional<List<Task>> findTaskByStatus(@Param("status_id") Long status_id);
+
+    @Query("SELECT t FROM Task t WHERE t.endtask BETWEEN :startDate AND :endDate")
+    List<Task> findTasksDueInRange(@Param("startDate") Date startDate, @Param("endDate") Date endDate);
 
 }
