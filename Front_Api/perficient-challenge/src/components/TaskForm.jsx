@@ -6,7 +6,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import Button from "@mui/material/Button";
 import { sizing } from '@mui/system';
-import { MdOutlineTask } from "react-icons/md";
+
 
 
 function TaskForm({ createTask }) {
@@ -25,10 +25,12 @@ function TaskForm({ createTask }) {
 
   return (
     <>
+    
       <form className="inputs-tasks" onSubmit={handleSubmit}>
+      <h3>Crear una tarea</h3>
         <span>Descripcion :</span>
         <TextField
-          sx={{ marginBottom: "20px" }}
+          sx={{ marginBottom: "10px" }}
           size="small"
           id="outlined-basic"
           label="Descripcion de la tarea"
@@ -36,13 +38,13 @@ function TaskForm({ createTask }) {
           onChange={(e) => setInformation(e.target.value)}
         />
 
-        <span>Fecha de finalizacion:</span>
+        <span>Fecha de finalizacion :</span>
 
         <LocalizationProvider
           dateAdapter={AdapterDayjs}
         >
           <DatePicker   className="myDatePicker"
-          sx={{ marginBottom: "20px"}}
+          sx={{ marginBottom: "10px"}}
           onChange={() => {
             setfinishDate(e.target.value);
           }} 
@@ -52,11 +54,10 @@ function TaskForm({ createTask }) {
         <span>Categoria :</span>
         <TextField
           size="small"
-          sx={{ marginBottom: "20px" }}
+          sx={{ marginBottom: "10px" }}
           id="outlined-basic"
           label="Descripcion de la tarea"
           variant="outlined"
-          onChange={(e) => setInformation(e.target.value)}
         />
 
         <span>Estado :</span>
@@ -66,7 +67,6 @@ function TaskForm({ createTask }) {
           id="outlined-basic"
           label="Descripcion de la tarea"
           variant="outlined"
-          onChange={(e) => setInformation(e.target.value)}
         />
 
         <Button
