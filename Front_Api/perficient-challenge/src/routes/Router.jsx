@@ -1,12 +1,14 @@
 import React from 'react'
 import {Route, Routes, BrowserRouter  } from  'react-router-dom';
-import App from '../App';
+import Tasks from '../pages/tasks';
+import Login from '../pages/login';
 
 function Router() {
   return (
     <BrowserRouter>
         <Routes>
-            <Route path="/" element = {<App/>}/>
+            <Route path="/" element = {<Login/>}/>
+            <Route path="/app" element = {<Tasks/>}/>
         </Routes>
     </BrowserRouter>
   )
