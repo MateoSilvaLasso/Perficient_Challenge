@@ -10,13 +10,16 @@
 }
 
 .task-form {
-    width: 30%;
+    width: 25%;
+    height: 70vh;
+    background-color: aliceblue;
 }
 
 .task-list {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    padding: 0 20px 0 20px ;
 }
 
 h1 {
