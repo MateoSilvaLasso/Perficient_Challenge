@@ -11,11 +11,13 @@ public interface ITaskService {
 
     Optional<Task> save (Task task);
 
+    Iterable<Task> getAll();
+
     Optional<Task> edit( Long id, Task task);
 
     void delete (Task task);
 
-    Optional<List<Task>> findTaskByStatus(Long id);
+    String findTaskByStatus(Long id);
 
     Optional<List<Task>> findTasksByDay();
 
@@ -23,7 +25,7 @@ public interface ITaskService {
 
     Optional<List<Task>> findTaskByMonth();
 
-    Optional<List<Task>> findPendingTaskByCategory();
+    Optional<List<Task>> findPendingTaskByCategory(Long id);
 
     Optional<List<Task>> findPendingTaskByStatus();
 
