@@ -24,6 +24,9 @@ export default function MediaCard({task}) {
         <Typography variant="body2" color="text.secondary">
           {task.information}
         </Typography>
+        <Typography variant="body2" color="text.secondary">
+          {task.finishDate}
+        </Typography>
       </CardContent>
       <CardActions>
         <Button size="small">Share</Button>

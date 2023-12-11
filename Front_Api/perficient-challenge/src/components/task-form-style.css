@@ -1,0 +1,10 @@
+.inputs-tasks {
+    padding: 20px 40px 20px 40px ;
+    display: flex;
+    flex-direction: column;
+}
+
+.button-submit {
+    margin-top: 20px;
+    width: 100%;
+}

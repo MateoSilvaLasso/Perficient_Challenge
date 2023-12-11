@@ -1,0 +1,25 @@
+* {
+    font-family: 'Mulish', sans-serif;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.main-content {
+    display: flex;
+}
+
+.task-form {
+    width: 30%;
+}
+
+.task-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+h1 {
+    padding: 30px;
+    margin-bottom: 20px;
+}
