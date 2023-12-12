@@ -23,6 +23,11 @@ public class Category {
         this.color = color;
         this.tasks = tasks;
     }
+    public Category(Long id, String name, Color color) {
+        this.id = id;
+        this.name = name;
+        this.color = color;
+    }
 
     public Category(String name, Color color, Set<Task> tasks){
         this.name = name;

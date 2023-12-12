@@ -20,5 +20,5 @@ public class CategoryController {
     public Optional<Category> create(@RequestBody Category category){
         return this.service.save(category);
     }
-    
+
 }

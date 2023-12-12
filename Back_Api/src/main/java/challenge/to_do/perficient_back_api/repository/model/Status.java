@@ -29,6 +29,10 @@ public class Status {
         this.name = name;
         this.tasks = tasks;
     }
+    public Status(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 
     public Status(String name, Set<Task> tasks){
         this.name= name;

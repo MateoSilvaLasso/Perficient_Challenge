@@ -1,6 +1,8 @@
 package challenge.to_do.perficient_back_api.service.impl;
 
+import challenge.to_do.perficient_back_api.repository.model.Multimedia;
 import challenge.to_do.perficient_back_api.repository.model.Task;
+import challenge.to_do.perficient_back_api.repository.persistence.IMultimediaRepository;
 import challenge.to_do.perficient_back_api.repository.persistence.ITaskRepository;
 import challenge.to_do.perficient_back_api.service.ITaskService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +18,18 @@ public class TaskServiceImpl implements ITaskService {
     @Autowired
     private ITaskRepository taskRepository;
 
+    @Autowired
+    private IMultimediaRepository multimediaRepository;
+
     @Override
     public Optional<Task> save(Task task) {
         try {
+            if(task.getMultimedia()!=null){
+                for(Multimedia multimedia: task.getMultimedia()){
+                    multimedia.getTasks().add(task);
+                    multimediaRepository.save(multimedia);
+                }
+            }
             return Optional.of(taskRepository.save(task));
         } catch (Exception e) {
             e.printStackTrace();
@@ -63,13 +74,27 @@ public class TaskServiceImpl implements ITaskService {
     }
 
     @Override
-    public Optional<List<Task>> findPendingTaskByStatus() {
-        return taskRepository.findPendingTaskByStatus();
+    public Optional<List<Task>> findPendingTaskByStatus(Long id) {
+        return taskRepository.findPendingTaskByStatus(id);
+    }
+
+    @Override
+    public Optional<Task> findTaskByTitle(String title) {
+        return taskRepository.findTaskByTitle(title);
+    }
+
+    @Override
+    public Optional<List<Task>> findTaskByDescription(String description) {
+        return taskRepository.findTaskByDescription(description);
+    }
+
+    @Override
+    public Optional<List<Task>> findTaskByDate(Date date) {
+        return taskRepository.findTaskByDate(date);
     }
 
     @Override
     public Optional<List<Task>> findTasksDueInRange(Date end) {
-
         Date begin = new Date();
         return Optional.ofNullable(taskRepository.findTasksDueInRange(begin, end));
     }
