@@ -5,6 +5,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import { format } from 'date-fns';
 
 export default function MediaCard({task}) {
 
@@ -25,7 +26,7 @@ export default function MediaCard({task}) {
           {task.information}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          {task.finishDate}
+          {task.finishDate.toLocaleDateString()}
         </Typography>
       </CardContent>
       <CardActions>

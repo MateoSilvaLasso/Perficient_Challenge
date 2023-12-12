@@ -1,8 +1,3 @@
 export const categories = [
-    {
-        name: "Colegio"
-    }, 
-    {   
-        name: "Universidad"
-    }
+    "Casa", "Universidad", "Trabajo"
 ]
