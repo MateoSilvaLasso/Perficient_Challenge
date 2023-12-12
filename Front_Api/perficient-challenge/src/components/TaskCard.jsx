@@ -12,15 +12,15 @@ export default function MediaCard({task}) {
     console.log(task)
 
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ maxWidth: 300,  minWidth: 250 }}>
       <CardMedia
-        sx={{ height: 140 }}
-        image="https://i.pinimg.com/1200x/34/df/ee/34dfeed20d644ba572bd2d8d31bc8d77.jpg"
+        sx={{ height: 25 }}
+        image="https://bangbranding.com/blog/wp-content/uploads/2016/09/350x500_destacada-1.jpg"
         title="green iguana"
       />
       <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          {task.id}
+        <Typography gutterBottom variant="h6" component="div">
+          <b>{task.title}</b>
         </Typography>
         <Typography variant="body2" color="text.secondary">
           {task.information}
@@ -30,8 +30,10 @@ export default function MediaCard({task}) {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">Share</Button>
-        <Button size="small">Learn More</Button>
+      <div style={{display: 'flex', justifyContent: 'space-between', boxSizing: 'border-box' , width: '100%'}}>
+        <p>{task.category}</p>
+        <p>{task.state}</p>
+      </div>
       </CardActions>
     </Card>
   );

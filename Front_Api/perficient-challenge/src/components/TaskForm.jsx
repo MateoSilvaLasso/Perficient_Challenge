@@ -9,24 +9,25 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import { categories } from "./Categories";
 
-
 function TaskForm({ createTask }) {
-  const [information, setInformation] = useState('');
+  const [title, setTitle] = useState("");
+  const [information, setInformation] = useState("");
   const [finishDate, setfinishDate] = useState(null);
-  const [category, setCategory] = useState('');
-  const [state, setState] = useState('');
+  const [category, setCategory] = useState("");
+  const [state, setState] = useState("");
 
   const handleSubmit = (e) => {
     console.log("holiii");
     e.preventDefault();
     const newTask = {
-        id: 7,
+      id: 7,
+      title,
       information,
       finishDate: finishDate.toDate(),
-      category, 
-      state
+      category,
+      state,
     };
-    console.log(newTask)
+    console.log(newTask);
     createTask(newTask);
   };
 
@@ -42,7 +43,20 @@ function TaskForm({ createTask }) {
     <>
       <form className="inputs-tasks" onSubmit={handleSubmit}>
         <h3>Crear una tarea</h3>
+
+        <span>Titulo :</span>
+
+        <TextField
+          sx={{ marginBottom: "10px" }}
+          size="small"
+          id="outlined-basic"
+          label="Titulo de la tarea"
+          variant="outlined"
+          onChange={(e) => setTitle(e.target.value)}
+        />
+
         <span>Descripcion :</span>
+
         <TextField
           sx={{ marginBottom: "10px" }}
           size="small"
@@ -60,8 +74,8 @@ function TaskForm({ createTask }) {
             value={finishDate}
             sx={{ marginBottom: "10px" }}
             onChange={(date) => {
-                console.log(Object.prototype.toString.call(date))
-                setfinishDate(date);
+              console.log(Object.prototype.toString.call(date));
+              setfinishDate(date);
             }}
           />
         </LocalizationProvider>
@@ -75,9 +89,9 @@ function TaskForm({ createTask }) {
           label="Categoria"
           onChange={handleChangeCategory}
         >
-          <MenuItem value={10}>Por comprar</MenuItem>
-          <MenuItem value={20}>Universidad</MenuItem>
-          <MenuItem value={30}>Trabajo</MenuItem>
+          <MenuItem value={'Por comprar'}>Por comprar</MenuItem>
+          <MenuItem value={'Universidad'}>Universidad</MenuItem>
+          <MenuItem value={'Trabajo'}>Trabajo</MenuItem>
         </Select>
 
         <span>Estado :</span>
@@ -89,9 +103,9 @@ function TaskForm({ createTask }) {
           label="Estado"
           onChange={handleChangeState}
         >
-          <MenuItem value={1}>Por hacer</MenuItem>
-          <MenuItem value={2}>En proceso</MenuItem>
-          <MenuItem value={3}>Finalizado</MenuItem>
+          <MenuItem value={'Por hacer'}>Por hacer</MenuItem>
+          <MenuItem value={'En proceso'}>En proceso</MenuItem>
+          <MenuItem value={'Finalizado'}>Finalizado</MenuItem>
         </Select>
 
         <Button
@@ -111,6 +125,5 @@ function TaskForm({ createTask }) {
     </>
   );
 }
-
 
 export default TaskForm;

@@ -23,7 +23,7 @@ function Tasks() {
       <div style = {{height: '10vh'}}>
         <ButtonAppBar/>
       </div>
-      <h1>Bienvenido a tus Tareas</h1>
+      <h1></h1>
       <section className='main-content'>
         <div className='task-form'>
           <TaskForm createTask = {createTask}/>
