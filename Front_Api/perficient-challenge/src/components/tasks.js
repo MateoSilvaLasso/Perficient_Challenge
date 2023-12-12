@@ -15,4 +15,12 @@ export const data = [
     category: 'Casa', 
     state: 'Por hacer'
   },
+  {
+    title: "Comprar Jamon",
+    id: 2,
+    information: "Comprar Jamon en el Carulla",
+    finishDate: new Date(), 
+    category: 'Casa', 
+    state: 'En proceso'
+  },
 ];

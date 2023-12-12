@@ -5,6 +5,9 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import { FaRegCircleCheck } from "react-icons/fa6";
+import { TbProgress } from "react-icons/tb";
+import { GoTasklist } from "react-icons/go";
 import { format } from 'date-fns';
 
 export default function MediaCard({task}) {
@@ -32,7 +35,9 @@ export default function MediaCard({task}) {
       <CardActions>
       <div style={{display: 'flex', justifyContent: 'space-between', boxSizing: 'border-box' , width: '100%'}}>
         <p>{task.category}</p>
-        <p>{task.state}</p>
+
+        {task.state === 'Completado'? <FaRegCircleCheck size = "25px" />: task.state === 'En proceso'? <TbProgress  size = "25px" />: task.state === 'Por hacer'? <GoTasklist size = "25px" />:  task.state}
+        
       </div>
       </CardActions>
     </Card>
