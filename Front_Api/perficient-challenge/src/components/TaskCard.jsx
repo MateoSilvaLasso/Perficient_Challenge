@@ -15,7 +15,7 @@ export default function MediaCard({task}) {
     console.log(task)
 
   return (
-    <Card sx={{ maxWidth: 300,  minWidth: 250 }}>
+    <Card sx={{ maxWidth: 300,  minWidth: 250, marginBottom: '2rem'}}>
       <CardMedia
         sx={{ height: 25 }}
         image="https://bangbranding.com/blog/wp-content/uploads/2016/09/350x500_destacada-1.jpg"
