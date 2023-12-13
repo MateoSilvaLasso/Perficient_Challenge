@@ -27,11 +27,40 @@
     padding: 0 3rem 0 3rem ;
 }
 
-h1 {
+.nav-bar-section{
     padding-left: 2rem;
-    padding-top: 1rem;
     height: 10vh;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
 }
+
+.add-icon {
+    margin-right: 3rem;
+}
+
+button {
+    /* Reset margin and padding */
+    margin: 0;
+    padding: 0;
+  
+    /* Reset border */
+    border: none;
+  
+    /* Reset background and text color */
+    background-color: transparent;
+    color: inherit;
+  
+    /* Reset font styles */
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    text-decoration: none;
+  
+    /* Reset cursor to default */
+    cursor: pointer;
+  }
+
 
 h3 {
     margin-bottom: 1rem;
@@ -41,4 +70,25 @@ h3 {
 
 span {
     margin-bottom: 0.5rem;
+}
+
+.modal-container {
+    background-color: rgba(0, 0, 0, 0.3);
+    /* display: none; */
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;   
+}
+
+.modal {
+    /* display: none; */
+    width: 40%;
+    background-color: #ffff;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    padding: 2rem 2rem;
+
 }

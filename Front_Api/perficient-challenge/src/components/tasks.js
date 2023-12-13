@@ -2,7 +2,7 @@ export const data = [
   {
     title: "Challenge Perficient",
     id: 1,
-    information: "Completar el challenge de Perficient",
+    information: "Completar el challenge ",
     finishDate: new Date(), 
     category: 'Univerisidad', 
     state: 'Completado'

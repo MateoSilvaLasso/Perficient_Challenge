@@ -7,9 +7,10 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
+import { MdOutlineCancel } from "react-icons/md";
 import { categories } from "./Categories";
 
-function TaskForm({ createTask }) {
+function TaskForm({ createTask, closeWindow}) {
   const [title, setTitle] = useState("");
   const [information, setInformation] = useState("");
   const [finishDate, setfinishDate] = useState(null);
@@ -29,6 +30,8 @@ function TaskForm({ createTask }) {
     };
     console.log(newTask);
     createTask(newTask);
+    console.log(closeWindow);
+    closeWindow(false)
   };
 
   const handleChangeCategory = (event) => {
@@ -42,6 +45,7 @@ function TaskForm({ createTask }) {
   return (
     <>
       <form className="inputs-tasks" onSubmit={handleSubmit}>
+      
         <h3>Crear una tarea</h3>
 
         <span>Titulo :</span>
