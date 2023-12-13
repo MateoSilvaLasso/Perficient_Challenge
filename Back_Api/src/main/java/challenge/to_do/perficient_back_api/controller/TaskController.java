@@ -5,7 +5,15 @@ import challenge.to_do.perficient_back_api.service.ITaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.*;
 import java.util.Optional;
 import java.util.OptionalInt;
@@ -18,9 +26,15 @@ public class TaskController {
     @Autowired
     private ITaskService service;
 
-    @PostMapping("")
-    public Optional<Task> createTask(@RequestBody Task task) {
-        return this.service.save(task);
+    @PostMapping("/{category_id}/{status_id}")
+    public Optional<Task> createTask(@RequestBody Task task, @PathVariable Long category_id, @PathVariable Long status_id) {
+        if (task.getRecurrenceStartDate() != null) {
+            LocalDate localDate = task.getRecurrenceStartDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            DayOfWeek dayOfWeek = localDate.getDayOfWeek();
+             return this.service.save(task, category_id, status_id, dayOfWeek);
+        }
+
+        return this.service.save(task, category_id,status_id,null);
     }
 
     @PutMapping("/{id}")
@@ -33,7 +47,8 @@ public class TaskController {
         this.service.delete(task);
     }
 
-    @GetMapping("")
+    @GetMapping
+    //@PreAuthorize( value="permitAll()")
     public Iterable<Task> getAllTasks() {
         return this.service.getAll();
     }
@@ -69,8 +84,8 @@ public class TaskController {
     }
 
     @GetMapping("/pending/{date}")
-    public Optional<List<Task>> findTaskInRange(@PathVariable Date current) {
-        return this.service.findTasksDueInRange(current);
+    public Optional<List<Task>> findTaskInRange(@PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date date) {
+        return this.service.findTasksDueInRange(date);
     }
 
 
@@ -80,14 +95,14 @@ public class TaskController {
     }
 
 
-    @GetMapping("/description")
+    @GetMapping("/description/{description}")
     public Optional<List<Task>> findTaskByDescription(@PathVariable String description) {
         return this.service.findTaskByDescription(description);
     }
 
 
-    @GetMapping("/date")
-    public Optional<List<Task>> findTaskByDate(@PathVariable Date date){
+    @GetMapping("/date/{date}")
+    public Optional<List<Task>> findTaskByDate(@PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date date){
         return this.service.findTaskByDate(date);
     }
 

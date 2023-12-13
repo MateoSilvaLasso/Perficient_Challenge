@@ -1,6 +1,6 @@
 package challenge.to_do.perficient_back_api.repository.model;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.Set;
 
 @Entity

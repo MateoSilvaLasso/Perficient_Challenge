@@ -6,15 +6,20 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
+import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 public interface ITaskRepository extends CrudRepository<Task, Long> {
 
-    @Query("SELECT t FROM Task t WHERE DAY(t.endtask) = DAY(CURRENT_DATE) AND MONTH(t.endtask) = MONTH(CURRENT_DATE) AND YEAR(t.endtask) = YEAR(CURRENT_DATE) ORDER BY t.beginTask DESC")
+    @Query("SELECT t FROM Task t WHERE " +
+            "FUNCTION('DATE_PART', 'DAY', FUNCTION('TIMEZONE', 'America/Bogota', t.endtask)) = FUNCTION('DATE_PART', 'DAY', FUNCTION('TIMEZONE', 'America/Bogota', CURRENT_DATE)) " +
+            "AND FUNCTION('DATE_PART', 'MONTH', FUNCTION('TIMEZONE', 'America/Bogota', t.endtask)) = FUNCTION('DATE_PART', 'MONTH', FUNCTION('TIMEZONE', 'America/Bogota', CURRENT_DATE)) " +
+            "AND FUNCTION('DATE_PART', 'YEAR', FUNCTION('TIMEZONE', 'America/Bogota', t.endtask)) = FUNCTION('DATE_PART', 'YEAR', FUNCTION('TIMEZONE', 'America/Bogota', CURRENT_DATE)) " +
+            "AND FUNCTION('HOUR', t.endtask) <= 23 " +
+            "ORDER BY t.beginTask DESC")
     Optional<List<Task>> findTasksByDay();
-
     @Query("SELECT t FROM Task t WHERE EXTRACT(YEAR FROM t.endtask) = EXTRACT(YEAR FROM CURRENT_DATE) AND EXTRACT(WEEK FROM t.endtask) = EXTRACT(WEEK FROM CURRENT_DATE) ORDER BY t.beginTask DESC")
     Optional<List<Task>> findTasksByWeek();
 
@@ -27,7 +32,7 @@ public interface ITaskRepository extends CrudRepository<Task, Long> {
     @Query("SELECT t FROM Task t JOIN Status s ON t.status.id = s.id WHERE t.status.id = :status ORDER BY t.beginTask asc")
     Optional<List<Task>> findPendingTaskByStatus(@Param("status")Long status);
 
-    @Query("SELECT s.name FROM Task t JOIN Status s ON s.id = t.status.id WHERE t.status.id = :status_id")
+    @Query("SELECT s.name FROM Task t JOIN Status s ON s.id = t.status.id WHERE t.id = :status_id")
     String findTaskByStatus(@Param("status_id") Long status_id);
 
     @Query("SELECT t FROM Task t WHERE t.endtask BETWEEN :startDate AND :endDate")

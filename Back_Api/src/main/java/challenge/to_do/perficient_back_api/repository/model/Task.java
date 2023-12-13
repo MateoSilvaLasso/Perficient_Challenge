@@ -1,7 +1,10 @@
 package challenge.to_do.perficient_back_api.repository.model;
 
 
-import javax.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.*;
+import java.time.DayOfWeek;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -13,21 +16,29 @@ public class Task {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(length = 20000, unique = true)
+    @Temporal(TemporalType.DATE)
+    private Date recurrenceStartDate;
+
+    @Enumerated(EnumType.STRING)
+    private DayOfWeek recurrenceDayOfWeek;
+
+    @Column(length = 20000)
     private String title;
     private Date beginTask;
 
 
     private Date endtask;
-    @Column(length = 20000000)
+
     private String information;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "category_id") // Specify the foreign key column
+
     private Category category;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "status_id") // Specify the foreign key column
+
     private Status status;
 
     @ManyToMany
@@ -43,6 +54,8 @@ public class Task {
 
     public Task(Task task){
         this.id = task.getId();
+        this.recurrenceStartDate = task.getRecurrenceStartDate();
+        this.recurrenceDayOfWeek = task.recurrenceDayOfWeek;
         this.title = task.getTitle();
         this.beginTask = task.getBeginTask();
         this.endtask = task.getEndtask();
@@ -87,6 +100,22 @@ public class Task {
         this.category = category;
         this.status = status;
         this.multimedia = multimedia;
+    }
+
+    public Date getRecurrenceStartDate() {
+        return recurrenceStartDate;
+    }
+
+    public void setRecurrenceStartDate(Date recurrenceStartDate) {
+        this.recurrenceStartDate = recurrenceStartDate;
+    }
+
+    public DayOfWeek getRecurrenceDayOfWeek() {
+        return recurrenceDayOfWeek;
+    }
+
+    public void setRecurrenceDayOfWeek(DayOfWeek recurrenceDayOfWeek) {
+        this.recurrenceDayOfWeek = recurrenceDayOfWeek;
     }
 
     public String getTitle() {

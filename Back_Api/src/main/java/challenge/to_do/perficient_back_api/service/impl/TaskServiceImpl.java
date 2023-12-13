@@ -1,16 +1,19 @@
 package challenge.to_do.perficient_back_api.service.impl;
 
+import challenge.to_do.perficient_back_api.repository.model.Category;
 import challenge.to_do.perficient_back_api.repository.model.Multimedia;
+import challenge.to_do.perficient_back_api.repository.model.Status;
 import challenge.to_do.perficient_back_api.repository.model.Task;
 import challenge.to_do.perficient_back_api.repository.persistence.IMultimediaRepository;
+import challenge.to_do.perficient_back_api.repository.persistence.IStatusRepository;
 import challenge.to_do.perficient_back_api.repository.persistence.ITaskRepository;
+import challenge.to_do.perficient_back_api.service.ICategoryService;
 import challenge.to_do.perficient_back_api.service.ITaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.time.DayOfWeek;
+import java.util.*;
 
 @Service
 public class TaskServiceImpl implements ITaskService {
@@ -21,8 +24,14 @@ public class TaskServiceImpl implements ITaskService {
     @Autowired
     private IMultimediaRepository multimediaRepository;
 
+    @Autowired
+    private ICategoryService categoryService;
+
+    @Autowired
+    private IStatusRepository statusRepository;
+
     @Override
-    public Optional<Task> save(Task task) {
+    public Optional<Task> save(Task task, Long category_id, Long status_id, DayOfWeek recurrence) {
         try {
             if(task.getMultimedia()!=null){
                 for(Multimedia multimedia: task.getMultimedia()){
@@ -30,11 +39,59 @@ public class TaskServiceImpl implements ITaskService {
                     multimediaRepository.save(multimedia);
                 }
             }
-            return Optional.of(taskRepository.save(task));
+            Optional<Category> c = categoryService.findById(category_id);
+            task.setCategory(c.get());
+            Optional<Status> s =  statusRepository.findById(status_id);
+            task.setStatus(s.get());
+            Optional<Task> savedTask= Optional.of(taskRepository.save(task));
+            if (savedTask.isPresent()) {
+                if(recurrence!=null) {
+                    Task savedTask1 = savedTask.get();
+
+
+                    List<Task> recurringTasks = generateRecurringTasks(savedTask1, recurrence);
+
+
+                    for (Task recurringTask : recurringTasks) {
+                        taskRepository.save(recurringTask);
+                    }
+                }else{
+                    return Optional.of(task);
+                }
+                return Optional.of(task);
+            } else {
+                return Optional.empty();
+            }
+            //return Optional.of(taskRepository.save(task));
         } catch (Exception e) {
             e.printStackTrace();
             return Optional.empty();
         }
+    }
+
+    private List<Task> generateRecurringTasks(Task baseTask, DayOfWeek recurrenceDayOfWeek) {
+        List<Task> recurringTasks = new ArrayList<>();
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(baseTask.getRecurrenceStartDate());
+
+        while (calendar.get(Calendar.DAY_OF_WEEK) != recurrenceDayOfWeek.getValue()) {
+
+            calendar.add(Calendar.DAY_OF_MONTH, 1);
+        }
+
+        while (calendar.getTime().before(baseTask.getEndtask())) {
+            Task recurringTask = new Task(baseTask);
+            recurringTask.setId(null);
+            recurringTask.setBeginTask(calendar.getTime());
+            recurringTask.setRecurrenceStartDate(calendar.getTime());
+
+            recurringTasks.add(recurringTask);
+
+            calendar.add(Calendar.DAY_OF_MONTH, 7);
+        }
+
+        return recurringTasks;
     }
 
     @Override
