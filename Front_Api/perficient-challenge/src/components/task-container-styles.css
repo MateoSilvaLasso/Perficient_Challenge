@@ -1,0 +1,8 @@
+.task-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-content: flex-start;
+    padding: 0 3rem 0 3rem ;
+}

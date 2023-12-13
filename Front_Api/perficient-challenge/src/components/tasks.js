@@ -5,7 +5,7 @@ export const data = [
     information: "Completar el challenge ",
     finishDate: new Date(), 
     category: 'Univerisidad', 
-    state: 'Completado'
+    state: 'Finalizado'
   },
   {
     title: "Comprar Pan",

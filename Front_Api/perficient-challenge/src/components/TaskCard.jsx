@@ -36,7 +36,7 @@ export default function MediaCard({task}) {
       <div style={{display: 'flex', justifyContent: 'space-between', boxSizing: 'border-box' , width: '100%'}}>
         <p>{task.category}</p>
 
-        {task.state === 'Completado'? <FaRegCircleCheck size = "25px" />: task.state === 'En proceso'? <TbProgress  size = "25px" />: task.state === 'Por hacer'? <GoTasklist size = "25px" />:  task.state}
+        {task.state === 'Finalizado'? <FaRegCircleCheck size = "25px" />: task.state === 'En proceso'? <TbProgress  size = "25px" />: task.state === 'Por hacer'? <GoTasklist size = "25px" />:  task.state}
         
       </div>
       </CardActions>
