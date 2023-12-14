@@ -1,0 +1,19 @@
+.modal-task-edit {
+    background-color: rgba(0, 0, 0, 0.3);
+    /* display: none; */
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+}
+
+.modal-task-edit__container {
+    /* display: none; */
+    width: 40%;
+    background-color: #ffff;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    padding: 2rem 2rem;
+}

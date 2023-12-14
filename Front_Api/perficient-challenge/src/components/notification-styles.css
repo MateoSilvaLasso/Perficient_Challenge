@@ -1,6 +1,19 @@
 .notification-card {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
     border: rgba(0, 0, 0, 0.2) solid 1px;
     border-radius: 10px;
-    padding: 10px;
+    padding-left: 0;
     margin-bottom: 0.7rem;
+}
+
+.notification-card__decoration {
+    background-color: #CCCCCC;
+    width: 7.5px;
+    border-radius:  10px 0 0 10px;
+}
+
+.notification-card__content {
+    padding: 10px;
 }

@@ -8,10 +8,7 @@ import { IoAddCircleOutline } from "react-icons/io5";
 import { MdOutlineCancel } from "react-icons/md";
 import Notifications from "../components/Notifications.jsx";
 import { IoIosSearch } from "react-icons/io";
-import MenuItem from "@mui/material/MenuItem";
-import Select from "@mui/material/Select";
-import InputLabel from "@mui/material/InputLabel";
-import FormControl from "@mui/material/FormControl";
+import CardEdit from "../components/CardEdit.jsx";
 import "./task-styles.css";
 
 function Tasks() {
@@ -19,6 +16,7 @@ function Tasks() {
   const [addTaskVisibility, setAddTaskVisibility] = useState(false);
   const [categoryQuery, setCategoryQuery] = useState();
   const [stateQuery, setStateQuery] = useState();
+  const [cardDescription, setCardDescription] = useState(null);
  
   useEffect(() => {
     setTasks(data);
@@ -28,8 +26,16 @@ function Tasks() {
     setTasks([...tasks, task]);
   }
 
+  useEffect(() => {
+    console.log('Ayudame dios')
+    console.log(cardDescription)
+  }, [cardDescription]);
+
   return (
     <div>
+      {cardDescription !== null? (
+        <CardEdit task = {cardDescription}/> 
+      ): null}
       {addTaskVisibility ? (
         <div className="modal-container" id="modal_container">
           <div className="modal">
@@ -71,7 +77,6 @@ function Tasks() {
                 <option value="" selected>Buscar por</option>
                 <option value="Casa">Titulo</option>
                 <option value="Universidad">Informacion</option>
-                <option value="Trabajo">Trabajo</option>
               </select>
               <select name="" id="">
                 <option value="" selected>Categoria</option>
@@ -98,7 +103,7 @@ function Tasks() {
               <IoAddCircleOutline className="add-icon" size="3rem" />
             </button>
           </div>
-          <TasksList tasks={tasks} />
+          <TasksList tasks={tasks} openCardEdit = {setCardDescription} />
         </div>
       </section>
     </div>

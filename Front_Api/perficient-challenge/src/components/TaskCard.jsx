@@ -8,14 +8,18 @@ import Typography from "@mui/material/Typography";
 import { FaRegCircleCheck } from "react-icons/fa6";
 import { TbProgress } from "react-icons/tb";
 import { GoTasklist } from "react-icons/go";
+import PropTypes from 'prop-types';
 import { format } from "date-fns";
 
-export default function MediaCard({ task }) {
+export default function TaskCard({ task , openCardEdit}) {
   console.log(task);
 
   return (
     <Card sx={{ maxWidth: 300, minWidth: 250, marginBottom: "2rem" }} style={{cursor: 'pointer'}} onClick = {() => {
-      alert()
+      console.log("Pammm")
+      console.log(task)
+      openCardEdit(task)
+      
     }} >
       <CardMedia
         sx={{ height: 25 }}
@@ -65,3 +69,7 @@ export default function MediaCard({ task }) {
     </Card>
   );
 }
+
+// TaskCard.propTypes = {
+//   openCardEdit: PropTypes.func.isRequired,
+// };

@@ -4,9 +4,11 @@ import './notification-styles.css'
 function Notification() {
   return (
     <div className='notification-card'>
-        <div style={{height: '100%', width: '2px', backgroundColor: '#CCCCCC'}}></div>
-      <h4>Notificacion de ejemplo</h4>
-      <p>Texto de ejemplo</p>
+        <div className='notification-card__decoration'></div>
+        <div className='notification-card__content'>    
+            <h4>Notificacion de ejemplo</h4>
+            <p>Texto de ejemplo</p>
+        </div>
     </div>
   )
 }
