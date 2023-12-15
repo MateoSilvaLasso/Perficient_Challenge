@@ -1,5 +1,6 @@
 package challenge.to_do.perficient_back_api.repository.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.util.Set;
 
@@ -10,28 +11,30 @@ public class Multimedia {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    private Byte [] contenido;
+    private byte [] contenido;
 
-    @ManyToMany(mappedBy = "multimedia")
-    private Set<Task> tasks;
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "task_id")
+
+    private Task task;
 
     public Multimedia(Multimedia multimedia){
         this.id = multimedia.getId();
         this.contenido = multimedia.getContenido();
-        this.tasks = multimedia.getTasks();
+        this.task = multimedia.getTasks();
     }
-    public Multimedia(Long id, Byte[] contenido, Set<Task> tasks) {
+    public Multimedia(Long id, byte[] contenido, Task tasks) {
         this.id = id;
         this.contenido = contenido;
-        this.tasks = tasks;
+        this.task = tasks;
     }
 
     public Multimedia() {
     }
 
-    public Multimedia(Byte[] contenido, Set<Task> tasks){
+    public Multimedia(byte[] contenido, Task tasks){
         this.contenido = contenido;
-        this.tasks = tasks;
+        this.task = tasks;
     }
 
     public Long getId() {
@@ -42,19 +45,19 @@ public class Multimedia {
         this.id = id;
     }
 
-    public Byte[] getContenido() {
+    public byte[] getContenido() {
         return contenido;
     }
 
-    public void setContenido(Byte[] contenido) {
+    public void setContenido(byte[] contenido) {
         this.contenido = contenido;
     }
 
-    public Set<Task> getTasks() {
-        return tasks;
+    public Task getTasks() {
+        return task;
     }
 
-    public void setTasks(Set<Task> tasks) {
-        this.tasks = tasks;
+    public void setTasks(Task tasks) {
+        this.task = tasks;
     }
 }

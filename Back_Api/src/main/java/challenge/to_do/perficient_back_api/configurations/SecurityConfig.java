@@ -31,6 +31,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authRequest ->
                         authRequest
                                 .requestMatchers("/login/**").permitAll()
+                                .requestMatchers("/notify").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .sessionManagement(sessionManager->

@@ -1,5 +1,6 @@
 package challenge.to_do.perficient_back_api.repository.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Builder
@@ -28,6 +30,13 @@ public class User implements UserDetails {
     private String firtsName;
     private String LastName;
     private String country;
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
+    @JsonIgnore
+    private Set<Task> tasks;
+
+
 
     public User(String userName, String password, String firtsName, String lastName, String country) {
         this.userName = userName;
@@ -68,8 +77,26 @@ public class User implements UserDetails {
         return firtsName;
     }
 
+
+
     public void setFirtsName(String firtsName) {
         this.firtsName = firtsName;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Set<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(Set<Task> tasks) {
+        this.tasks = tasks;
     }
 
     public String getLastName() {
@@ -95,7 +122,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return null;
+        return userName;
     }
 
     @Override

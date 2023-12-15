@@ -10,18 +10,19 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ITaskService {
-    Optional<Task> save (Task task, Long category_id, Long status_id, DayOfWeek recurrence);
-    Iterable<Task> getAll();
+    Optional<Task> save (Task task, Long category_id, Long status_id, String user_id, DayOfWeek recurrence);
+    Iterable<Task> getAll(String user_name);
     Optional<Task> edit( Long id, Task task);
     void delete (Task task);
-    String findTaskByStatus(Long id);
-    Optional<List<Task>> findTasksByDay();
-    Optional<List<Task>> findTasksByWeek();
-    Optional<List<Task>> findTaskByMonth();
-    Optional<List<Task>> findPendingTaskByCategory(Long id);
-    Optional<List<Task>> findPendingTaskByStatus(Long id);
-    Optional<List<Task>> findTasksDueInRange(Date endDate);
-    Optional<Task> findTaskByTitle(String title);
-    Optional<List<Task>> findTaskByDescription(String description);
-    Optional<List<Task>> findTaskByDate(Date date);
+    Optional<List<Task>> findTaskByStatus(Long id, String user_name);
+    Optional<List<Task>> findTasksByDay(String user_name);
+    Optional<List<Task>> findTasksByWeek(String user_name);
+    Optional<List<Task>> findTaskByMonth(String user_name);
+    Optional<List<Task>> findPendingTask();
+    Optional<List<Task>> findPendingTaskByCategory(Long id, String user_name);
+    Optional<List<Task>> findPendingTaskByStatus(Long id, String user_name);
+    Optional<List<Task>> findTasksDueInRange(Date endDate, String user_name);
+    Optional<Task> findTaskByTitle(String title, String user_name);
+    Optional<List<Task>> findTaskByDescription(String description, String user_name);
+    Optional<List<Task>> findTaskByDate(Date date, String user_name);
 }

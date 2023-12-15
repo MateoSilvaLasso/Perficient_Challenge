@@ -8,6 +8,8 @@ import java.time.DayOfWeek;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.TimeZone;
+
 
 @Entity
 public class Task {
@@ -24,9 +26,11 @@ public class Task {
 
     @Column(length = 20000)
     private String title;
+
+    @Temporal(TemporalType.DATE)
     private Date beginTask;
 
-
+    @Temporal(TemporalType.DATE)
     private Date endtask;
 
     private String information;
@@ -41,12 +45,13 @@ public class Task {
 
     private Status status;
 
-    @ManyToMany
-    @JoinTable(
-            name = "task_multimedia",
-            joinColumns = @JoinColumn(name = "task.id"),
-            inverseJoinColumns = @JoinColumn(name = "multimedia_id")
-    )
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "task_id")
+    @JsonIgnore
     private Set<Multimedia> multimedia;
 
     public Task() {
@@ -54,6 +59,7 @@ public class Task {
 
     public Task(Task task){
         this.id = task.getId();
+        this.user = task.getUser();
         this.recurrenceStartDate = task.getRecurrenceStartDate();
         this.recurrenceDayOfWeek = task.recurrenceDayOfWeek;
         this.title = task.getTitle();
@@ -132,6 +138,14 @@ public class Task {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Date getBeginTask() {
