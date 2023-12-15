@@ -32,4 +32,9 @@ public class CategoryServiceImpl implements ICategoryService {
     public void delete(Long id) {
         categoryRepository.deleteById(id);
     }
+
+    @Override
+    public Iterable<Category> findAll() {
+        return categoryRepository.findAll();
+    }
 }

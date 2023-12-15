@@ -21,4 +21,10 @@ public class CategoryController {
         return this.service.save(category);
     }
 
+    @GetMapping()
+    public Iterable<Category> getAll(){
+        return this.service.findAll();
+    }
+
+
 }
