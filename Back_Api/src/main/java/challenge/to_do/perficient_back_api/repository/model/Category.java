@@ -1,6 +1,8 @@
 package challenge.to_do.perficient_back_api.repository.model;
 
-import javax.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.*;
 import java.awt.*;
 import java.util.Set;
 
@@ -15,6 +17,7 @@ public class Category {
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "category_id")
+    @JsonIgnore
     private Set<Task> tasks;
 
     public Category(Long id, String name, Color color, Set<Task> tasks) {
@@ -23,11 +26,21 @@ public class Category {
         this.color = color;
         this.tasks = tasks;
     }
+    public Category(Long id, String name, Color color) {
+        this.id = id;
+        this.name = name;
+        this.color = color;
+    }
 
     public Category(String name, Color color, Set<Task> tasks){
         this.name = name;
         this.color = color;
         this.tasks = tasks;
+    }
+
+    public Category(String name, Color color){
+        this.name = name;
+        this.color = color;
     }
 
     public Category() {

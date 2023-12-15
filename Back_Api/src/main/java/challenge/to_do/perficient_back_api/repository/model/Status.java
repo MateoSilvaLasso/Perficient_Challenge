@@ -1,6 +1,8 @@
 package challenge.to_do.perficient_back_api.repository.model;
 
-import javax.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.*;
 import java.util.Set;
 
 @Entity
@@ -13,6 +15,7 @@ public class Status {
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "status_id")
+    @JsonIgnore
     private Set<Task> tasks;
 
     public Status() {
@@ -28,6 +31,10 @@ public class Status {
         this.id = id;
         this.name = name;
         this.tasks = tasks;
+    }
+    public Status(Long id, String name) {
+        this.id = id;
+        this.name = name;
     }
 
     public Status(String name, Set<Task> tasks){
