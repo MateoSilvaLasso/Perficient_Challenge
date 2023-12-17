@@ -1,11 +1,15 @@
 import React from 'react'
+import Authentication from '../components/authentication'
+import axios from  '../config/axios'
+import { context } from '../context/context'
+import { useEffect, useState } from 'react'
 
-function Login() {
+const login = () => {
   return (
-    <div>
-      <h1>Login</h1>
-    </div>
+    <context.Provider>
+          <Authentication/>
+    </context.Provider>
   )
 }
 
-export default Login
+export default login
