@@ -100,7 +100,7 @@ function TaskForm({ createTask, closeWindow}) {
 
         <span>Estado :</span>
         <Select
-          sx={{ marginBottom: "40px" }}
+          sx={{ marginBottom: "10px" }}
           labelId="demo-simple-select-label-state"
           id="demo-simple-select-state"
           value={state}
@@ -111,6 +111,9 @@ function TaskForm({ createTask, closeWindow}) {
           <MenuItem value={'En proceso'}>En proceso</MenuItem>
           <MenuItem value={'Finalizado'}>Finalizado</MenuItem>
         </Select>
+
+        <span>Archivo: </span>
+        <input style={{marginBottom: '20px'}} type="file" name="" id="" />
 
         <Button
           type="submit"
