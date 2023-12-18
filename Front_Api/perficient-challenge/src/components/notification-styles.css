@@ -6,6 +6,10 @@
     border-radius: 10px;
     padding-left: 0;
     margin-bottom: 0.7rem;
+}   
+
+p {
+    margin-bottom: 2px !important;
 }
 
 .notification-card__decoration {
@@ -15,5 +19,5 @@
 }
 
 .notification-card__content {
-    padding: 10px;
+    padding: 10px;  
 }

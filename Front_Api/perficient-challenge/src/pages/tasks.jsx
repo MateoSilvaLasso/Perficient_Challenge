@@ -34,11 +34,13 @@ function Tasks() {
   return (
     <div>
       {cardDescription !== null? (
-        <CardEdit task = {cardDescription}/> 
+        <CardEdit task = {cardDescription} closeWindow = {setCardDescription}/> 
       ): null}
+      
       {addTaskVisibility ? (
         <div className="modal-container" id="modal_container">
-          <div className="modal">
+          
+          <div className="modal-help">
             <div style={{ display: "flex", justifyContent: "flex-end" }}>
               <button
                 id="close"
@@ -68,23 +70,23 @@ function Tasks() {
         <div className="task-list">
           <div className="nav-bar-section">
             <div className="seach-bar-container">
-              <input
+              <input style={{marginRight: '40px', width: '40rem'}}
                 placeholder="Escribe tu busqueda"
                 className="search-bar"
                 type="text"
               />
-              <select name="" id="">
+              <select name="" id=""   style={{marginRight: '20px'}}>
                 <option value="" selected>Buscar por</option>
                 <option value="Casa">Titulo</option>
                 <option value="Universidad">Informacion</option>
               </select>
-              <select name="" id="">
+              <select name="" id="" style={{marginRight: '20px'}}>
                 <option value="" selected>Categoria</option>
                 <option value="Casa">Casa</option>
                 <option value="Universidad">Universidad</option>
                 <option value="Trabajo">Trabajo</option>
               </select>
-              <select name="" id="">
+              <select name="" id="" style={{marginRight: '20px'}}>
                 <option value="" selected>Estado</option>
                 <option value="Casa">Por hacer</option>
                 <option value="Universidad">En proceso</option>

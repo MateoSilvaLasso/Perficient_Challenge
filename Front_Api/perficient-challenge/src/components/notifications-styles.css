@@ -6,12 +6,14 @@
 }
 
 .main-container-notifications h1 {
-    margin-top: 1.5rem;
+    font-size: 2rem !important;
+    margin-top: 1.5rem !important;
     margin-bottom: 1.5rem;
     color: #434343;
 }
 
 h4 {
+    font-size: 1.2rem !important; 
     color: #434343;
 }
 
