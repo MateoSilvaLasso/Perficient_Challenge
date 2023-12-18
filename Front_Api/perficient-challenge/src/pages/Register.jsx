@@ -5,9 +5,18 @@ import { context } from '../context/context'
 import { useEffect, useState } from 'react'
 
 const register = () => {
+
+    const[userRegister, setUserRegister] = useState({userName:"", password:"",firtsName:"",LastName:"", country:""})
+
+    const create = async (user) =>{
+        const res = await axios.post("/login/register", user);
+        console.log(res.data)
+    }
+
+
     return(
         <context.Provider>
-            <Register/>
+            <Register createUser={create}/>
         </context.Provider>
     )
 }
