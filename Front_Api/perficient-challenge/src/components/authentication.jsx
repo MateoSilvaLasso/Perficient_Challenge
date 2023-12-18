@@ -7,11 +7,30 @@ import axios from  '../config/axios'
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import background from "../img/login.jpeg";
+import login from '../pages/login';
 
 
 
 
-const authentication = () => {
+const authentication = ({addUser, userEdit}) => {
+
+    const[token, setToken] = useState('')
+    const[name, setUserName] = useState('')
+    const[password, setPassword] = useState('')
+
+    let navigate = useNavigate();
+
+    useEffect(()=>{
+       setToken(userEdit.token) 
+    },[userEdit])
+
+    const handleClick = () => {
+        addUser({name,password})
+        console.log(name)
+        localStorage.setItem("token", token);
+        navigate('/app');
+    }
+
 
     return(
         <>
@@ -25,10 +44,10 @@ const authentication = () => {
                     <div class="row">
                         <div class="col-12 mx-auto">
                             <div class="input-group mb-3">
-                                <input type="text" class="form-control form-control rounded-pill" placeholder="User name"/>
+                                <input type="text" class="form-control form-control rounded-pill" placeholder="User name" onChange={(e)=>{setUserName(e.target.value)}}/>
                             </div>
                             <div class="input-group mb-3">
-                                <input type="text" class="form-control form-control rounded-pill" placeholder="Password"/>
+                                <input type="password" class="form-control form-control rounded-pill" placeholder="Password" onChange={(e)=>{setPassword(e.target.value)}}/>
                             </div>
                             
                         </div>
@@ -36,7 +55,7 @@ const authentication = () => {
                     <div class="row">
                         <div class="col-12 mx-auto">
                             <div class="d-grid gap-2 mb-3">
-                                    <button type="button" class="btn btn-outline-primary btn-block rounded-pill">Login</button>
+                                    <button type="button" class="btn btn-outline-primary btn-block rounded-pill" onClick={handleClick}>Login</button>
                                 </div>
                                 <div class="d-grid gap-2 mb-3">
                                     <button type="button" class="btn btn-outline-secondary btn-block rounded-pill">Register</button>
@@ -48,6 +67,11 @@ const authentication = () => {
         </>
     )
 
+}
+
+authentication.PropTypes = {
+    addUser: PropTypes.func,
+    userEdit: PropTypes.object
 }
 
 export default authentication
