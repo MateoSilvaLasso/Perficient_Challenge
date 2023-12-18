@@ -25,10 +25,21 @@ const authentication = ({addUser, userEdit}) => {
     },[userEdit])
 
     const handleClick = () => {
-        addUser({name,password})
-        console.log(name)
+        axios.post("/login/create", {name,password}).then
+        (res =>{
+            if(res.status === 200){
+                localStorage.setItem("token", res.data.token);
+                navigate('/app');
+            }
+        })
+        setToken(userEdit.token)
+        console.log(userEdit)
         localStorage.setItem("token", token);
         navigate('/app');
+    }
+
+    const handleRute = () =>{
+        navigate('/auth');
     }
 
 
@@ -58,7 +69,9 @@ const authentication = ({addUser, userEdit}) => {
                                     <button type="button" class="btn btn-outline-primary btn-block rounded-pill" onClick={handleClick}>Login</button>
                                 </div>
                                 <div class="d-grid gap-2 mb-3">
-                                    <button type="button" class="btn btn-outline-secondary btn-block rounded-pill">Register</button>
+                                    
+                                        <button type="button" class="btn btn-outline-secondary btn-block rounded-pill" onClick={handleRute}>Register</button>
+                                    
                             </div>
                         </div>
                     </div>
@@ -69,7 +82,7 @@ const authentication = ({addUser, userEdit}) => {
 
 }
 
-authentication.PropTypes = {
+authentication.propTypes = {
     addUser: PropTypes.func,
     userEdit: PropTypes.object
 }
