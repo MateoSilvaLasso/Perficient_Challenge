@@ -11,6 +11,8 @@ import { IoIosSearch } from "react-icons/io";
 import CardEdit from "../components/CardEdit.jsx";
 import "./task-styles.css";
 
+import { useNavigate } from 'react-router-dom';
+
 function Tasks() {
   const [tasks, setTasks] = useState([]);
   const [addTaskVisibility, setAddTaskVisibility] = useState(false);
@@ -61,6 +63,7 @@ function Tasks() {
 
       <div style={{ height: "10vh" }}>
         <ButtonAppBar />
+        
       </div>
       <section className="main-content">
         <div className="task-notification">
