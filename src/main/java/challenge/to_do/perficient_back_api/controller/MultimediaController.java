@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/multimedia")
 public class MultimediaController {
 

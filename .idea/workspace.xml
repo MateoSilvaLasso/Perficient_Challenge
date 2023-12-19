@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="40cc9a2a-de28-42f1-b36f-c5c02ce18ea9" name="Changes" comment="" />
+    <list default="true" id="40cc9a2a-de28-42f1-b36f-c5c02ce18ea9" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/challenge/to_do/perficient_back_api/configurations/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/challenge/to_do/perficient_back_api/configurations/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/challenge/to_do/perficient_back_api/controller/CategoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/challenge/to_do/perficient_back_api/controller/CategoryController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/challenge/to_do/perficient_back_api/controller/MultimediaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/challenge/to_do/perficient_back_api/controller/MultimediaController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/challenge/to_do/perficient_back_api/controller/NotifyController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/challenge/to_do/perficient_back_api/controller/NotifyController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/challenge/to_do/perficient_back_api/controller/StatusController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/challenge/to_do/perficient_back_api/controller/StatusController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/challenge/to_do/perficient_back_api/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/challenge/to_do/perficient_back_api/controller/UserController.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -12,6 +23,14 @@
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="Use Maven wrapper" />
+        <option name="useMavenConfig" value="true" />
+      </MavenGeneralSettings>
+    </option>
   </component>
   <component name="ProjectCodeStyleSettingsMigration">
     <option name="version" value="2" />
@@ -26,7 +45,11 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/Mateo Silva/Desktop/perficient/Perficient_Challenge",
+    "last_opened_file_path": "C:/Users/Mateo Silva/Desktop/Perficient_back/Perficient_Challenge",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "vue.rearranger.settings.migration": "true"
   }
@@ -49,6 +72,7 @@
       <option name="presentableId" value="Default" />
       <updated>1702945995309</updated>
       <workItem from="1702946002971" duration="74000" />
+      <workItem from="1702946111665" duration="815000" />
     </task>
     <servers />
   </component>
