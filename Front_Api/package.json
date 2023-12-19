@@ -1,7 +1,9 @@
 {
   "dependencies": {
     "@mui/icons-material": "^5.14.19",
+    "chart.js": "^4.4.1",
     "material-icons": "^1.13.12",
-    "prop-types": "^15.8.1"
+    "prop-types": "^15.8.1",
+    "react-chartjs-2": "^5.2.0"
   }
 }

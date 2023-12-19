@@ -1,3 +1,3 @@
-export const categories = [
+export  const categories = [
     "Casa", "Universidad", "Trabajo"
 ]
