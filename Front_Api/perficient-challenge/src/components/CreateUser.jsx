@@ -14,11 +14,12 @@ const CreateUser = ({createUser}) => {
     const[name, setName] = useState('')
     const[apellido,setApellido] = useState('')
     const[pais, setPais] = useState('')
+    const[phone,setPhone] = useState('')
 
     let navigate = useNavigate();
 
     const handleClick = () =>{
-        createUser({userName,password,name,apellido,pais})
+        createUser({userName,password,name,apellido,pais,phone})
         navigate('/')
     }
 
@@ -48,6 +49,9 @@ const CreateUser = ({createUser}) => {
                             </div>
                             <div class="input-group mb-3">
                                 <input type="text" class="form-control form-control rounded-pill" placeholder="Pais" onChange={(e)=>{setPais(e.target.value)}}/>
+                            </div>
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control form-control rounded-pill" placeholder="Pais" onChange={(e)=>{setPhone(e.target.value)}}/>
                             </div>
                         </div>
                     </div>
