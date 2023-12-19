@@ -4,13 +4,11 @@ const initialState = {
   variableGlobal: 'valorInicial',
 };
 
-const cambiarVariableGlobal = (nuevoValor) => {
-    return {
-      type: 'CAMBIAR_VARIABLE_GLOBAL',
-      payload: nuevoValor,
-    };
-  };
+function counterReducer(state = initialState, action) {
 
-const store = createStore(() => {}, initialState);
+      return { variableGlobal: action };
+}
+
+const store = createStore(counterReducer);
 
 export default store

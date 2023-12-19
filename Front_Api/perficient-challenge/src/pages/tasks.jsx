@@ -18,6 +18,7 @@ import { useGlobalState, setGlobalState } from "../index";
 import { useNavigate } from "react-router-dom";
 import { categories } from "../components/Categories.js";
 
+
 function Tasks() {
   const [tasks, setTasks] = useState([]);
   const [addTaskVisibility, setAddTaskVisibility] = useState(false);
@@ -25,14 +26,14 @@ function Tasks() {
   const [categoryQuery, setCategoryQuery] = useState([]);
   const [stateQuery, setStateQuery] = useState([]);
   const [cardDescription, setCardDescription] = useState(null);
-  let vari = useGlobalState("name")[0];
+  const vari = store.getState();
   let navigate = useNavigate();
   const [addCategoryQuery, setAddCategoryQuery] = useState(false);
 
   useEffect(() => {
-    console.log(vari);
+    console.log(vari.variableGlobal.type);
 
-    axios.get(`/tasks/${vari}`).then((res) => {
+    axios.get(`/tasks/${vari.variableGlobal.type}`).then((res) => {
       if (res.status === 200) {
         console.log(res.data);
         setTasks(res.data);
@@ -57,7 +58,7 @@ function Tasks() {
   }, []);
 
   function createTask(task, category, status) {
-    axios.post(`/tasks/${category}/${status}/${vari}`, task).then((res) => {
+    axios.post(`/tasks/${category}/${status}/${vari.variableGlobal.type}`, task).then((res) => {
       if (res.status === 200) {
         console.log(res.data);
         navigate("/App");
@@ -73,6 +74,26 @@ function Tasks() {
       }
     });
   };
+
+  function searchByStatus(event) {
+    const state = event.target.value
+    axios.get(`/tasks/${state}/${vari.variableGlobal.type}`).then(res =>{
+      if(res.status === 200){
+        console.log(res.data)
+        setTasks(res.data)
+      }
+    })
+  }
+
+  function searchByCategory(event){
+    const category = event.target.value
+    axios.get(`/tasks/category/${category}/${vari.variableGlobal.type}`).then(res =>{
+      if(res.status === 200){
+        console.log(res.data)
+        setTasks(res.data)
+      }
+    })
+  }
 
   useEffect(() => {
     console.log("Ayudame dios");
@@ -257,14 +278,14 @@ function Tasks() {
                 className="search-bar"
                 type="text"
               />
-              <select name="" id="" style={{ marginRight: "20px" }}>
+              <select name="" id="" style={{ marginRight: "20px" }} >
                 <option value="" selected>
                   Buscar por
                 </option>
                 <option value="Casa">Titulo</option>
                 <option value="Universidad">Informacion</option>
               </select>
-              <select name="" id="" style={{ marginRight: "20px" }}>
+              <select name="" id="" style={{ marginRight: "20px" }} onChange={searchByCategory}>
                 <option value="" selected>
                   Categoria
                 </option>
@@ -274,7 +295,7 @@ function Tasks() {
                   </option>
                 ))}
               </select>
-              <select name="" id="" style={{ marginRight: "20px" }}>
+              <select name="" id="" style={{ marginRight: "20px" }} onChange={searchByStatus}>
                 <option value="" selected>
                   Estado
                 </option>
