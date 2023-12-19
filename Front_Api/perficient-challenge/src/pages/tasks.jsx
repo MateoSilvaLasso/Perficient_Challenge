@@ -52,10 +52,22 @@ function Tasks() {
               <MdOutlineCancel size="30px" />
             </button>
           </div>
-          <h3>Crear categorias</h3>
+          <h3 style={{marginBottom: '2rem'}}>Crear categorias</h3>
           {categories.map((category, index) => (
-            <p key={index}>{category}</p>
+            <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', height: '3rem', border: '1px solid rgba(0,0,0,0.2)', borderRadius: '10px', marginBottom: '1rem'}}>
+              <p style={{marginLeft: '1rem'}} key={index}>{category}</p>
+              <div style={{width: '1rem', height: '1rem', backgroundColor: 'black', marginRight: '2rem', borderRadius: '10px'}}></div>
+            </div>
           ))}
+          
+          <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', height: '3rem', border: '1px solid rgba(0,0,0,0.2)', borderRadius: '10px', marginBottom: '1rem'}}>
+            <input style={{marginLeft: '1rem', borderRadius: '15px', paddingLeft: '1rem', border: '1px solid rgba(0,0,0,0.3)'}} type="text" placeholder="Escribe la categoria" />
+            <input  style={{marginRight: '1rem'}} type="color" name="" id=""  />
+            </div>
+            <div style={{display: 'flex', justifyContent: 'center', width: '100% '}}>
+              <button style={{border: '1px solid rgba(0,0,0,0.3)', padding: '10px 15px', borderRadius: '5px', backgroundColor: 'black', color: 'white'}}>Crear la catetoria</button>
+            </div>
+            
         </div>
       </div>
       ) : null }
