@@ -3,6 +3,7 @@ import Register from '../components/CreateUser'
 import axios from  '../config/axios'
 import { context } from '../context/context'
 import { useEffect, useState } from 'react'
+import store from "../store";
 
 const register = () => {
 
