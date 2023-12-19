@@ -119,7 +119,7 @@ function TaskForm({ createTask, closeWindow }) {
 
           <MenuItem value={'Por comprar'}>Por comprar</MenuItem>
           {category.map((category, index) => (
-            <MenuItem key={index} value={category.id}>
+            <MenuItem key={category.id} value={category.id}>
               {category.name}
             </MenuItem>
           ))}

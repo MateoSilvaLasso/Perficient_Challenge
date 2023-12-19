@@ -1,23 +1,43 @@
 import React from "react";
 import ButtonAppBar from "../components/Header";
 import { useState, useEffect } from "react";
-import { data as Data } from "../components/tasks";
 import Chart from "chart.js/auto";
 import { CategoryScale } from "chart.js";
 import { Pie, Line } from "react-chartjs-2";
+import axios from "../config/axios";
+import { useGlobalState, setGlobalState } from "../index";
+import { useNavigate } from "react-router-dom";
 
 Chart.register(CategoryScale);
 
 function statistics() {
-  const uniqueStates = Array.from(new Set(Data.map((task) => task.state)));
+
+  const [Data, setData] = useState([] )
+  let vari = useGlobalState("name")[0];
+  let navigate = useNavigate();
+
+  useEffect( () => {
+    axios.get(`/tasks/${vari}`).then((res) => {
+      if (res.status === 200) {
+        console.log(res.data);
+        setData(res.data);
+      }
+    });
+  }, [] )
+
+  const uniqueStates = Array.from(new Set(Data.map((task) => task.status.name)));
+
+  console.log('uniqueStates', uniqueStates)
 
   // Count tasks for each state
   const stateCounts = uniqueStates.map((state) => {
     return Data.reduce(
-      (count, task) => count + (task.state === state ? 1 : 0),
+      (count, task) => count + (task.status.name === state ? 1 : 0),
       0
     );
   });
+
+  console.log('stateCounts', stateCounts)
 
   const uniqueCategories = Array.from(
     new Set(Data.map((task) => task.category))
@@ -32,7 +52,7 @@ function statistics() {
   });
 
   const [chartDataTaskFinished, setChartDataTaskFinished] = useState({
-    labels: ["Por hacer", "En proceso", "Finalizado"],
+    labels: ["Por hacer", "En proceso", "Cancelado", "Finalizado"],
     datasets: [
       {
         label: "Tareas ",
@@ -65,7 +85,7 @@ function statistics() {
 
   const monthCounts = [0,0,0,0,0,0,0,0,0,0,0,0];
   Data.forEach((task) => {
-    const month = new Date(task.finishDate).getMonth(); // Get the month as a number (0-11)
+    const month = new Date(task.endTask).getMonth(); // Get the month as a number (0-11)
     if (!monthCounts[month]) monthCounts[month] = 0;
     monthCounts[month]++;
   });
@@ -125,7 +145,7 @@ function statistics() {
               width: "48%",
               borderRadius: "10px",
               padding: "1rem",
-              border: "1px solid rgba(0,0,0,0.2)",
+              border: "1px solid rgba(0,0,0,0.5)",
               display: "flex",
             }}
           >
@@ -148,7 +168,7 @@ function statistics() {
               width: "48%",
               borderRadius: "10px",
               padding: "1rem",
-              border: "1px solid rgba(0,0,0, 0.2)",
+              border: "1px solid rgba(0,0,0,0.5)",
               display: "flex",
             }}
           >
@@ -171,7 +191,7 @@ function statistics() {
               width: "98%",
               borderRadius: "10px",
               padding: "1rem",
-              border: "1px solid rgba(0,0,0,0.2)",
+              border: "1px solid rgba(0,0,0,0.5)",
               display: "flex",
             }}
           >

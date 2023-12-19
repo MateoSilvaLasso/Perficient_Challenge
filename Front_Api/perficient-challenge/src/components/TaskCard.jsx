@@ -49,14 +49,14 @@ export default function TaskCard({ task , openCardEdit}) {
         >
           <p>{task.category.name}</p>
 
-          {task.state === "Finalizado" ? (
+          {task.status.name === "Finalizado" ? (
             <FaRegCircleCheck size="25px" />
-          ) : task.state === "En proceso" ? (
+          ) : task.status.name === "En progreso" ? (
             <TbProgress size="25px" />
-          ) : task.state === "Por hacer" ? (
+          ) : task.status.name === "Por hacer" ? (
             <GoTasklist size="25px" />
           ) : (
-            task.state
+            task.status.name
           )}
         </div>
       </CardActions>

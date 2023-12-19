@@ -2,8 +2,8 @@ import React from "react";
 import { useState, useEffect } from "react";
 import TasksList from "../components/tasksList";
 import TaskForm from "../components/TaskForm";
-import { connect } from 'react-redux';
-import axios from  '../config/axios'
+import { connect } from "react-redux";
+import axios from "../config/axios";
 import { data } from "../components/tasks.js";
 import ButtonAppBar from "../components/Header.jsx";
 import { IoAddCircleOutline } from "react-icons/io5";
@@ -11,13 +11,12 @@ import { MdOutlineCancel } from "react-icons/md";
 import Notifications from "../components/Notifications.jsx";
 import { IoIosSearch } from "react-icons/io";
 import CardEdit from "../components/CardEdit.jsx";
-import { useAuth } from '../pages/authContext';
+import { useAuth } from "../pages/authContext";
 import "./task-styles.css";
-import store from '../store';
-import {useGlobalState, setGlobalState} from '../index'
-import { useNavigate } from 'react-router-dom';
-import { categories } from '../components/Categories.js'
-
+import store from "../store";
+import { useGlobalState, setGlobalState } from "../index";
+import { useNavigate } from "react-router-dom";
+import { categories } from "../components/Categories.js";
 
 function Tasks() {
   const [tasks, setTasks] = useState([]);
@@ -26,56 +25,54 @@ function Tasks() {
   const [categoryQuery, setCategoryQuery] = useState([]);
   const [stateQuery, setStateQuery] = useState([]);
   const [cardDescription, setCardDescription] = useState(null);
-  let vari = useGlobalState("name")[0]
+  let vari = useGlobalState("name")[0];
   let navigate = useNavigate();
   const [addCategoryQuery, setAddCategoryQuery] = useState(false);
 
   useEffect(() => {
-   
+    console.log(vari);
 
-    console.log(vari)
-    
-    axios.get(`/tasks/${vari}`).then(res =>{
-        if(res.status === 200){
-          console.log(res.data)
-          setTasks(res.data)
-        }
-    })
-
-    axios.get("/status").then(res =>{
-      if(res.status === 200){
-        console.log(res.data)
-        setStateQuery(res.data)
+    axios.get(`/tasks/${vari}`).then((res) => {
+      if (res.status === 200) {
+        console.log(res.data);
+        setTasks(res.data);
       }
-    })
+    });
 
-    axios.get("/category").then(res =>{
-      if(res.status === 200){
-        console.log(res.data)
-        setCategoryQuery(res.data)
+    axios.get("/status").then((res) => {
+      if (res.status === 200) {
+        console.log(res.data);
+        setStateQuery(res.data);
       }
-    })
+    });
+
+    axios.get("/category").then((res) => {
+      if (res.status === 200) {
+        console.log(res.data);
+        setCategoryQuery(res.data);
+      }
+    });
 
     //setTasks(data);
   }, []);
 
-  function createTask(task,category,status) {
-    axios.post(`/tasks/${category}/${status}/${vari}`, task).then(res =>{
-      if(res.status === 200){
-          console.log(res.data)
-          navigate("/App")
+  function createTask(task, category, status) {
+    axios.post(`/tasks/${category}/${status}/${vari}`, task).then((res) => {
+      if (res.status === 200) {
+        console.log(res.data);
+        navigate("/App");
       }
-    })
+    });
   }
 
-  const editTask = (task, id,category, status) =>{
-      axios.put(`/tasks/${id}/${category}/${status}`, task).then(res =>{
-        if(res.status === 200){
-          console.log(res.data)
-          navigate("/")
-        }
-      })
-  }
+  const editTask = (task, id, category, status) => {
+    axios.put(`/tasks/${id}/${category}/${status}`, task).then((res) => {
+      if (res.status === 200) {
+        console.log(res.data);
+        navigate("/");
+      }
+    });
+  };
 
   useEffect(() => {
     console.log("Ayudame dios");
@@ -84,44 +81,116 @@ function Tasks() {
 
   return (
     <div>
-      {cardDescription !== null? (
-        <CardEdit task = {cardDescription} closeWindow = {setCardDescription} editTask = {editTask}/> 
-      ): null}
-      
+      {cardDescription !== null ? (
+        <CardEdit
+          task={cardDescription}
+          closeWindow={setCardDescription}
+          editTask={editTask}
+        />
+      ) : null}
+
       {addTaskVisibility ? (
         <div className="modal-container" id="modal_container">
-        <div className="modal-help">
-          <div style={{ display: "flex", justifyContent: "flex-end" }}>
-            <button
-              id="close"
-              onClick={() => {
-                setAddCategoryQuery(false);
+          <div className="modal-help">
+            <div style={{ display: "flex", justifyContent: "flex-end" }}>
+              <button
+                id="close"
+                onClick={() => {
+                  setAddCategoryQuery(false);
+                }}
+              >
+                <MdOutlineCancel size="30px" />
+              </button>
+            </div>
+            <h3 style={{ marginBottom: "2rem" }}>Crear categorias</h3>
+            {categories.map((category, index) => (
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  height: "3rem",
+                  border: "1px solid rgba(0,0,0,0.2)",
+                  borderRadius: "10px",
+                  marginBottom: "1rem",
+                }}
+              >
+                <p style={{ marginLeft: "1rem" }} key={index}>
+                  {category}
+                </p>
+                <div
+                  style={{
+                    width: "1rem",
+                    height: "1rem",
+                    backgroundColor: "black",
+                    marginRight: "2rem",
+                    borderRadius: "10px",
+                  }}
+                ></div>
+              </div>
+            ))}
+
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                height: "3rem",
+                border: "1px solid rgba(0,0,0,0.2)",
+                borderRadius: "10px",
+                marginBottom: "1rem",
               }}
             >
-              <MdOutlineCancel size="30px" />
-            </button>
+              <input
+                style={{
+                  marginLeft: "1rem",
+                  borderRadius: "15px",
+                  paddingLeft: "1rem",
+                  border: "1px solid rgba(0,0,0,0.3)",
+                }}
+                type="text"
+                placeholder="Escribe la categoria"
+              />
+              <input
+                style={{ marginRight: "1rem" }}
+                type="color"
+                name=""
+                id=""
+              />
+            </div>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                width: "100% ",
+              }}
+            >
+              <button
+                style={{
+                  border: "1px solid rgba(0,0,0,0.3)",
+                  padding: "10px 15px",
+                  borderRadius: "5px",
+                  backgroundColor: "black",
+                  color: "white",
+                }}
+                onClick={() => {
+                  // () => {
+                  //   axios.post(`/tasks/${vari}`).then((res) => {
+                  //     if (res.status === 200) {
+                  //       console.log(res.data);
+                  //       setTasks(res.data);
+                  //     }
+                  //   });
+                  // };
+                  setAddCategoryQuery(false);
+                }}
+              >
+                Crear la catetoria
+              </button>
+            </div>
           </div>
-          <h3 style={{marginBottom: '2rem'}}>Crear categorias</h3>
-          {categories.map((category, index) => (
-            <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', height: '3rem', border: '1px solid rgba(0,0,0,0.2)', borderRadius: '10px', marginBottom: '1rem'}}>
-              <p style={{marginLeft: '1rem'}} key={index}>{category}</p>
-              <div style={{width: '1rem', height: '1rem', backgroundColor: 'black', marginRight: '2rem', borderRadius: '10px'}}></div>
-            </div>
-          ))}
-          
-          <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', height: '3rem', border: '1px solid rgba(0,0,0,0.2)', borderRadius: '10px', marginBottom: '1rem'}}>
-            <input style={{marginLeft: '1rem', borderRadius: '15px', paddingLeft: '1rem', border: '1px solid rgba(0,0,0,0.3)'}} type="text" placeholder="Escribe la categoria" />
-            <input  style={{marginRight: '1rem'}} type="color" name="" id=""  />
-            </div>
-            <div style={{display: 'flex', justifyContent: 'center', width: '100% '}}>
-              <button style={{border: '1px solid rgba(0,0,0,0.3)', padding: '10px 15px', borderRadius: '5px', backgroundColor: 'black', color: 'white'}} onClick={() => {
-                setAddCategoryQuery(false)
-              }}>Crear la catetoria</button>
-            </div>
-            
         </div>
-      </div>
-      ) : null }
+      ) : null}
 
       {addTaskVisibility ? (
         <div className="modal-container" id="modal_container">
@@ -149,10 +218,30 @@ function Tasks() {
       </div>
       <section className="main-content">
         <div className="task-notification">
-          <div style={{height: '10vh', display: 'flex', alignItems: 'center', marginLeft: '3rem'}}>
-            <button style={{border: '2px solid rgba(0,0,0,0.3)', borderRadius: '25px', padding: '5px 10px 5px 10px ', backgroundColor: 'rgba(0,0,0,0.7)', color: 'white', fontWeight: '600'}} onClick={ () => {
-              setAddCategoryQuery(true)
-            } }> Configurar categorias</button>
+          <div
+            style={{
+              height: "10vh",
+              display: "flex",
+              alignItems: "center",
+              marginLeft: "3rem",
+            }}
+          >
+            <button
+              style={{
+                border: "2px solid rgba(0,0,0,0.3)",
+                borderRadius: "25px",
+                padding: "5px 10px 5px 10px ",
+                backgroundColor: "rgba(0,0,0,0.7)",
+                color: "white",
+                fontWeight: "600",
+              }}
+              onClick={() => {
+                setAddCategoryQuery(true);
+              }}
+            >
+              {" "}
+              Configurar categorias
+            </button>
           </div>
           <div className="task-notification-fix">
             <Notifications />
@@ -175,17 +264,20 @@ function Tasks() {
                 <option value="Casa">Titulo</option>
                 <option value="Universidad">Informacion</option>
               </select>
-              <select name="" id="" style={{marginRight: '20px'}}>
-                <option value="" selected>Categoria</option>
+              <select name="" id="" style={{ marginRight: "20px" }}>
+                <option value="" selected>
+                  Categoria
+                </option>
                 {categoryQuery.map((category, index) => (
                   <option key={index} value={category.id}>
                     {category.name}
                   </option>
                 ))}
-                
               </select>
-              <select name="" id="" style={{ marginRight: '20px' }}>
-                <option value="" selected>Estado</option>
+              <select name="" id="" style={{ marginRight: "20px" }}>
+                <option value="" selected>
+                  Estado
+                </option>
                 {stateQuery.map((estado, index) => (
                   <option key={index} value={estado.id}>
                     {estado.name}

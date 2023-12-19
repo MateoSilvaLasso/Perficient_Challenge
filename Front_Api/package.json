@@ -4,6 +4,9 @@
     "chart.js": "^4.4.1",
     "material-icons": "^1.13.12",
     "prop-types": "^15.8.1",
-    "react-chartjs-2": "^5.2.0"
+    "react-chartjs-2": "^5.2.0",
+    "react-hooks-global-state": "^2.1.0",
+    "react-redux": "^9.0.4",
+    "redux": "^5.0.0"
   }
 }
