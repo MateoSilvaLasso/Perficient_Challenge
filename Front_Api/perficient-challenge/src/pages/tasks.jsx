@@ -25,13 +25,13 @@ function Tasks() {
   const [cardDescription, setCardDescription] = useState(null);
 
   
-  const vari = useGlobalState("name")[0]
+  let vari = useGlobalState("name")[0]
   let navigate = useNavigate();
  
   useEffect(() => {
    
-    
-    //console.log(vari)
+
+    console.log(vari)
     
     axios.get(`/tasks/${vari}`).then(res =>{
         if(res.status === 200){
@@ -66,6 +66,15 @@ function Tasks() {
     })
   }
 
+  const editTask = (task, id,category, status) =>{
+      axios.put(`/tasks/${id}/${category}/${status}`, task).then(res =>{
+        if(res.status === 200){
+          console.log(res.data)
+          navigate("/")
+        }
+      })
+  }
+
   useEffect(() => {
     console.log('Ayudame dios')
     console.log(cardDescription)
@@ -74,7 +83,7 @@ function Tasks() {
   return (
     <div>
       {cardDescription !== null? (
-        <CardEdit task = {cardDescription} closeWindow = {setCardDescription}/> 
+        <CardEdit task = {cardDescription} closeWindow = {setCardDescription} editTask = {editTask}/> 
       ): null}
       
       {addTaskVisibility ? (
