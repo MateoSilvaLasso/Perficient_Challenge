@@ -18,7 +18,7 @@ import java.util.*;
 import java.util.Optional;
 import java.util.OptionalInt;
 
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/tasks")
 public class TaskController {
@@ -37,9 +37,9 @@ public class TaskController {
         return this.service.save(task, category_id,status_id,user_name,null);
     }
 
-    @PutMapping("/{id}")
-    public Optional<Task> editTask(@PathVariable Long id, @RequestBody Task task) {
-        return this.service.edit(id, task);
+    @PutMapping("/{id}/{category_id}/{status_id}")
+    public Optional<Task> editTask(@PathVariable Long id,@PathVariable Long category_id,@PathVariable Long status_id,  @RequestBody Task task) {
+        return this.service.edit(id, task, category_id, status_id);
     }
 
     @DeleteMapping("")
@@ -48,7 +48,7 @@ public class TaskController {
     }
 
     @GetMapping("/{user_name}")
-    @PreAuthorize("hasRole('noRole')")
+    //@PreAuthorize("hasRole('noRole')")
     //@PreAuthorize( value="permitAll()")
     public Iterable<Task> getAllTasks(@PathVariable String user_name) {
         return this.service.getAll(user_name);

@@ -28,6 +28,7 @@ public class SecurityConfig implements WebMvcConfigurer {
     private final jwtFilter jwtAuthenticationFilter;
     private final AuthenticationProvider authProvider;
 
+    /*
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
@@ -36,6 +37,10 @@ public class SecurityConfig implements WebMvcConfigurer {
                 .allowedHeaders("*")
                 .allowCredentials(true);
     }
+
+     */
+
+
 
 
     @Bean
@@ -59,7 +64,7 @@ public class SecurityConfig implements WebMvcConfigurer {
                                 .disable())
                 .authorizeHttpRequests(authRequest ->
                         authRequest
-                                .requestMatchers("/login/**").permitAll()
+                                .requestMatchers("/**").permitAll()
                                 .requestMatchers("/notify").permitAll()
                                 .anyRequest().authenticated()
                 )

@@ -51,6 +51,7 @@ public class TaskServiceImpl implements ITaskService {
             Optional<User> u = userRepository.findByUsername(user_name);
             task.setUser(u.get());
             Optional<Task> savedTask= Optional.of(taskRepository.save(task));
+            task.setBeginTask(new Date());
 
             if (savedTask.isPresent()) {
                 if(recurrence!=null) {
@@ -104,9 +105,17 @@ public class TaskServiceImpl implements ITaskService {
     }
 
     @Override
-    public Optional<Task> edit(Long id, Task task) {
-        taskRepository.deleteById(id);
-        return Optional.of(taskRepository.save(task));
+    public Optional<Task> edit(Long id, Task task, Long category_id, Long status_id) {
+        Optional<Task> task1 = taskRepository.findById(id);
+        Optional<Category> category = categoryService.findById(category_id);
+        //System.out.println(category.get().getName());
+        task.setCategory(category.get());
+        Optional<Status> status = statusRepository.findById(status_id);
+        task.setStatus(status.get());
+        task1.get().setTitle(task.getTitle());
+        task1.get().setInformation(task.getInformation());
+        task1.get().setEndtask(task.getEndtask());
+        return Optional.of(taskRepository.save(task1.get()));
     }
 
     @Override

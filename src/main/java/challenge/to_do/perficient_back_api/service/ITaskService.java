@@ -12,7 +12,7 @@ import java.util.Optional;
 public interface ITaskService {
     Optional<Task> save (Task task, Long category_id, Long status_id, String user_id, DayOfWeek recurrence);
     Iterable<Task> getAll(String user_name);
-    Optional<Task> edit( Long id, Task task);
+    Optional<Task> edit( Long id, Task task, Long category, Long status);
     void delete (Task task);
     Optional<List<Task>> findTaskByStatus(Long id, String user_name);
     Optional<List<Task>> findTasksByDay(String user_name);
