@@ -2,6 +2,8 @@ import React from "react";
 import { useState, useEffect } from "react";
 import TasksList from "../components/tasksList";
 import TaskForm from "../components/TaskForm";
+import { connect } from 'react-redux';
+import axios from  '../config/axios'
 import { data } from "../components/tasks.js";
 import ButtonAppBar from "../components/Header.jsx";
 import { IoAddCircleOutline } from "react-icons/io5";
@@ -9,21 +11,59 @@ import { MdOutlineCancel } from "react-icons/md";
 import Notifications from "../components/Notifications.jsx";
 import { IoIosSearch } from "react-icons/io";
 import CardEdit from "../components/CardEdit.jsx";
+import { useAuth } from '../pages/authContext';
 import "./task-styles.css";
+import store from '../store';
+import {useGlobalState, setGlobalState} from '../index'
+import { useNavigate } from 'react-router-dom';
 
 function Tasks() {
   const [tasks, setTasks] = useState([]);
   const [addTaskVisibility, setAddTaskVisibility] = useState(false);
-  const [categoryQuery, setCategoryQuery] = useState();
-  const [stateQuery, setStateQuery] = useState();
+  const [categoryQuery, setCategoryQuery] = useState([]);
+  const [stateQuery, setStateQuery] = useState([]);
   const [cardDescription, setCardDescription] = useState(null);
+
+  
+  const vari = useGlobalState("name")[0]
+  let navigate = useNavigate();
  
   useEffect(() => {
-    setTasks(data);
+   
+    
+    //console.log(vari)
+    
+    axios.get(`/tasks/${vari}`).then(res =>{
+        if(res.status === 200){
+          console.log(res.data)
+          setTasks(res.data)
+        }
+    })
+
+    axios.get("/status").then(res =>{
+      if(res.status === 200){
+        console.log(res.data)
+        setStateQuery(res.data)
+      }
+    })
+
+    axios.get("/category").then(res =>{
+      if(res.status === 200){
+        console.log(res.data)
+        setCategoryQuery(res.data)
+      }
+    })
+
+    //setTasks(data);
   }, []);
 
-  function createTask(task) {
-    setTasks([...tasks, task]);
+  function createTask(task,category,status) {
+    axios.post(`/tasks/${category}/${status}/${vari}`, task).then(res =>{
+      if(res.status === 200){
+          console.log(res.data)
+          navigate("/App")
+      }
+    })
   }
 
   useEffect(() => {
@@ -82,16 +122,20 @@ function Tasks() {
               </select>
               <select name="" id="" style={{marginRight: '20px'}}>
                 <option value="" selected>Categoria</option>
-                <option value="Casa">Casa</option>
-                <option value="Universidad">Universidad</option>
-                <option value="Trabajo">Trabajo</option>
+                {categoryQuery.map((category, index) => (
+                  <option key={index} value={category.id}>
+                    {category.name}
+                  </option>
+                ))}
+                
               </select>
-              <select name="" id="" style={{marginRight: '20px'}}>
+              <select name="" id="" style={{ marginRight: '20px' }}>
                 <option value="" selected>Estado</option>
-                <option value="Casa">Por hacer</option>
-                <option value="Universidad">En proceso</option>
-                <option value="Trabajo">Finalizado</option>
-                <option value="Trabajo">Cancelado</option>
+                {stateQuery.map((estado, index) => (
+                  <option key={index} value={estado.id}>
+                    {estado.name}
+                  </option>
+                ))}
               </select>
               <button>
                 <IoIosSearch size="30px" color="#1F1F1F" style={{marginLeft: '30px'}}/>

@@ -11,6 +11,7 @@ import { GoTasklist } from "react-icons/go";
 import PropTypes from 'prop-types';
 import { format } from "date-fns";
 
+
 export default function TaskCard({ task , openCardEdit}) {
   console.log(task);
 
@@ -34,14 +35,7 @@ export default function TaskCard({ task , openCardEdit}) {
           {task.information}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          {task.finishDate.toLocaleDateString("en-US", {
-            year: "numeric",
-            month: "numeric",
-            day: "numeric",
-            hour: "numeric",
-            minute: "numeric",
-            hour12: true, // Use 24-hour time format
-          })}
+          {format(task.endtask, "yyyy-MM-dd HH:mm")}
         </Typography>
       </CardContent>
       <CardActions>
@@ -53,7 +47,7 @@ export default function TaskCard({ task , openCardEdit}) {
             width: "100%",
           }}
         >
-          <p>{task.category}</p>
+          <p>{task.category.name}</p>
 
           {task.state === "Finalizado" ? (
             <FaRegCircleCheck size="25px" />

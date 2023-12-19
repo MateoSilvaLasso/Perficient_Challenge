@@ -4,7 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="edabb254-6128-4518-93f4-6e1a9b97d099" name="Changes" comment="" />
+    <list default="true" id="edabb254-6128-4518-93f4-6e1a9b97d099" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/Front_Api/perficient-challenge/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Front_Api/perficient-challenge/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Front_Api/perficient-challenge/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/Front_Api/perficient-challenge/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Front_Api/perficient-challenge/src/components/authentication.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Front_Api/perficient-challenge/src/components/authentication.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Front_Api/perficient-challenge/src/pages/tasks.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Front_Api/perficient-challenge/src/pages/tasks.jsx" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -49,7 +54,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/Mateo Silva/Desktop/Perficient_Challenge/Back_Api",
+    "last_opened_file_path": "C:/Users/Mateo Silva/Desktop/Perficient_back/Perficient_Challenge",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -81,6 +86,7 @@
       <updated>1702005009372</updated>
       <workItem from="1702005010263" duration="14090000" />
       <workItem from="1702089278104" duration="4555000" />
+      <workItem from="1702946078949" duration="27000" />
     </task>
     <servers />
   </component>
