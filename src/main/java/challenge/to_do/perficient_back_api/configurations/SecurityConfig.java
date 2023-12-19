@@ -3,6 +3,7 @@ package challenge.to_do.perficient_back_api.configurations;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.HttpSecurityBuilder;
@@ -62,12 +63,14 @@ public class SecurityConfig implements WebMvcConfigurer {
                 .csrf(csrf ->
                         csrf
                                 .disable())
+                .authorizeHttpRequests(request -> request.requestMatchers(HttpMethod.OPTIONS).permitAll())
                 .authorizeHttpRequests(authRequest ->
                         authRequest
-                                .requestMatchers("/**").permitAll()
+                                .requestMatchers("/login/**").permitAll()
                                 .requestMatchers("/notify").permitAll()
                                 .anyRequest().authenticated()
                 )
+
                 .sessionManagement(sessionManager->
                         sessionManager
                                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS))

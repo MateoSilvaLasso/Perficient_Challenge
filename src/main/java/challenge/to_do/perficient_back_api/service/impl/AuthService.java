@@ -43,6 +43,7 @@ public class AuthService {
                 .firtsName(request.getFirtsName())
                 .LastName(request.getLastName())
                 .country(request.getCountry())
+                .phone(request.getPhone())
                 .build();
 
         userRepository.save(user);
