@@ -65,7 +65,9 @@ function Tasks() {
             <input  style={{marginRight: '1rem'}} type="color" name="" id=""  />
             </div>
             <div style={{display: 'flex', justifyContent: 'center', width: '100% '}}>
-              <button style={{border: '1px solid rgba(0,0,0,0.3)', padding: '10px 15px', borderRadius: '5px', backgroundColor: 'black', color: 'white'}}>Crear la catetoria</button>
+              <button style={{border: '1px solid rgba(0,0,0,0.3)', padding: '10px 15px', borderRadius: '5px', backgroundColor: 'black', color: 'white'}} onClick={() => {
+                setAddCategoryQuery(false)
+              }}>Crear la catetoria</button>
             </div>
             
         </div>

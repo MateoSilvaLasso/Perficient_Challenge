@@ -10,7 +10,7 @@ import Select from "@mui/material/Select";
 import { MdOutlineCancel } from "react-icons/md";
 import { categories } from "./Categories";
 
-function TaskForm({ createTask, closeWindow}) {
+function TaskForm({ createTask, closeWindow }) {
   const [title, setTitle] = useState("");
   const [information, setInformation] = useState("");
   const [finishDate, setfinishDate] = useState(null);
@@ -31,7 +31,7 @@ function TaskForm({ createTask, closeWindow}) {
     console.log(newTask);
     createTask(newTask);
     console.log(closeWindow);
-    closeWindow(false)
+    closeWindow(false);
   };
 
   const handleChangeCategory = (event) => {
@@ -45,7 +45,6 @@ function TaskForm({ createTask, closeWindow}) {
   return (
     <>
       <form className="inputs-tasks" onSubmit={handleSubmit}>
-      
         <h3>Crear una tarea</h3>
 
         <span>Titulo :</span>
@@ -76,13 +75,17 @@ function TaskForm({ createTask, closeWindow}) {
           <DatePicker
             className="myDatePicker"
             value={finishDate}
-            sx={{ marginBottom: "10px" }}
             onChange={(date) => {
               console.log(Object.prototype.toString.call(date));
               setfinishDate(date);
             }}
           />
         </LocalizationProvider>
+
+        <div style={{ marginBottom: "10px", display: "flex",  }}>
+          <p style={{marginRight: '1rem'}}>Repetir semanalmente</p>
+          <input  type="radio" name="" id="" />
+        </div>
 
         <span>Categoria :</span>
         <Select
@@ -93,9 +96,9 @@ function TaskForm({ createTask, closeWindow}) {
           label="Categoria"
           onChange={handleChangeCategory}
         >
-          <MenuItem value={'Por comprar'}>Por comprar</MenuItem>
-          <MenuItem value={'Universidad'}>Universidad</MenuItem>
-          <MenuItem value={'Trabajo'}>Trabajo</MenuItem>
+          <MenuItem value={"Por comprar"}>Por comprar</MenuItem>
+          <MenuItem value={"Universidad"}>Universidad</MenuItem>
+          <MenuItem value={"Trabajo"}>Trabajo</MenuItem>
         </Select>
 
         <span>Estado :</span>
@@ -107,13 +110,13 @@ function TaskForm({ createTask, closeWindow}) {
           label="Estado"
           onChange={handleChangeState}
         >
-          <MenuItem value={'Por hacer'}>Por hacer</MenuItem>
-          <MenuItem value={'En proceso'}>En proceso</MenuItem>
-          <MenuItem value={'Finalizado'}>Finalizado</MenuItem>
+          <MenuItem value={"Por hacer"}>Por hacer</MenuItem>
+          <MenuItem value={"En proceso"}>En proceso</MenuItem>
+          <MenuItem value={"Finalizado"}>Finalizado</MenuItem>
         </Select>
 
         <span>Archivo: </span>
-        <input style={{marginBottom: '20px'}} type="file" name="" id="" />
+        <input style={{ marginBottom: "20px" }} type="file" name="" id="" />
 
         <Button
           type="submit"
