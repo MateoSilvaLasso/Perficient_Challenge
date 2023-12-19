@@ -18,10 +18,13 @@ export default function ButtonAppBar() {
         <MdOutlineTask size = "30px" style={{marginRight: "10px"}} />
           <Typography  variant="h6" component="div" sx={{ flexGrow: 1 }}>
             <b style={{marginRight: '4rem'}}>TaskApp</b>
-            <Link href="" style={{textDecoration: 'none', color: '#ffffff', fontSize: '1rem', textDecoration: 'underline', marginRight: '2rem' }} to={'/auth'}> Login</Link>
+            <Link href="" style={{textDecoration: 'none', color: '#ffffff', fontSize: '1rem', textDecoration: 'underline', marginRight: '2rem' }} to={'/'}> Login</Link>
 
-            <Link href="" style={{textDecoration: 'none', color: '#ffffff', fontSize: '1rem', textDecoration: 'underline' }} to={'/stadistics'}> Estadisticas</Link>
             
+            <Link href="" style={{textDecoration: 'none', color: '#ffffff', fontSize: '1rem', textDecoration: 'underline', marginRight: '2rem' }} to={'/app'}>  Inicio</Link>
+
+            <Link href="" style={{textDecoration: 'none', color: '#ffffff', fontSize: '1rem', textDecoration: 'underline' }} to={'/estadisticas'}> Estadisticas</Link>
+
           </Typography>
         </Toolbar>
       </AppBar>

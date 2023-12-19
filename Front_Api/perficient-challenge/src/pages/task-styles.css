@@ -10,8 +10,10 @@
 }
 
 .task-notification {
-    width: 25%;
-    margin-top: 10vh;
+    width: 25%;    
+}
+
+.task-notification-fix {
     height: 80vh;
     background-color: rgb(243, 243, 243);
     border-radius:  3rem 3rem 0 0;

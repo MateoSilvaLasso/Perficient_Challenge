@@ -10,16 +10,16 @@ import Notifications from "../components/Notifications.jsx";
 import { IoIosSearch } from "react-icons/io";
 import CardEdit from "../components/CardEdit.jsx";
 import "./task-styles.css";
-
-import { useNavigate } from 'react-router-dom';
+import { categories } from '../components/Categories.js'
 
 function Tasks() {
   const [tasks, setTasks] = useState([]);
   const [addTaskVisibility, setAddTaskVisibility] = useState(false);
   const [categoryQuery, setCategoryQuery] = useState();
   const [stateQuery, setStateQuery] = useState();
+  const [addCategoryQuery, setAddCategoryQuery] = useState(false);
   const [cardDescription, setCardDescription] = useState(null);
- 
+
   useEffect(() => {
     setTasks(data);
   }, []);
@@ -29,19 +29,39 @@ function Tasks() {
   }
 
   useEffect(() => {
-    console.log('Ayudame dios')
-    console.log(cardDescription)
+    console.log("Ayudame dios");
+    console.log(cardDescription);
   }, [cardDescription]);
 
   return (
     <div>
-      {cardDescription !== null? (
-        <CardEdit task = {cardDescription} closeWindow = {setCardDescription}/> 
-      ): null}
-      
+      {cardDescription !== null ? (
+        <CardEdit task={cardDescription} closeWindow={setCardDescription} />
+      ) : null}
+
+      {addCategoryQuery ? (
+        <div className="modal-container" id="modal_container">
+        <div className="modal-help">
+          <div style={{ display: "flex", justifyContent: "flex-end" }}>
+            <button
+              id="close"
+              onClick={() => {
+                setAddCategoryQuery(false);
+              }}
+            >
+              <MdOutlineCancel size="30px" />
+            </button>
+          </div>
+          <h3>Crear categorias</h3>
+          {categories.map((category, index) => (
+            <p key={index}>{category}</p>
+          ))}
+        </div>
+      </div>
+      ) : null }
+
       {addTaskVisibility ? (
         <div className="modal-container" id="modal_container">
-          
           <div className="modal-help">
             <div style={{ display: "flex", justifyContent: "flex-end" }}>
               <button
@@ -63,41 +83,58 @@ function Tasks() {
 
       <div style={{ height: "10vh" }}>
         <ButtonAppBar />
-        
       </div>
       <section className="main-content">
         <div className="task-notification">
-          <Notifications />
+          <div style={{height: '10vh', display: 'flex', alignItems: 'center', marginLeft: '3rem'}}>
+            <button style={{border: '2px solid rgba(0,0,0,0.3)', borderRadius: '25px', padding: '5px 10px 5px 10px ', backgroundColor: 'rgba(0,0,0,0.7)', color: 'white', fontWeight: '600'}} onClick={ () => {
+              setAddCategoryQuery(true)
+            } }> Configurar categorias</button>
+          </div>
+          <div className="task-notification-fix">
+            <Notifications />
+          </div>
         </div>
 
         <div className="task-list">
           <div className="nav-bar-section">
             <div className="seach-bar-container">
-              <input style={{marginRight: '40px', width: '40rem'}}
+              <input
+                style={{ marginRight: "40px", width: "40rem" }}
                 placeholder="Escribe tu busqueda"
                 className="search-bar"
                 type="text"
               />
-              <select name="" id=""   style={{marginRight: '20px'}}>
-                <option value="" selected>Buscar por</option>
+              <select name="" id="" style={{ marginRight: "20px" }}>
+                <option value="" selected>
+                  Buscar por
+                </option>
                 <option value="Casa">Titulo</option>
                 <option value="Universidad">Informacion</option>
               </select>
-              <select name="" id="" style={{marginRight: '20px'}}>
-                <option value="" selected>Categoria</option>
+              <select name="" id="" style={{ marginRight: "20px" }}>
+                <option value="" selected>
+                  Categoria
+                </option>
                 <option value="Casa">Casa</option>
                 <option value="Universidad">Universidad</option>
                 <option value="Trabajo">Trabajo</option>
               </select>
-              <select name="" id="" style={{marginRight: '20px'}}>
-                <option value="" selected>Estado</option>
+              <select name="" id="" style={{ marginRight: "20px" }}>
+                <option value="" selected>
+                  Estado
+                </option>
                 <option value="Casa">Por hacer</option>
                 <option value="Universidad">En proceso</option>
                 <option value="Trabajo">Finalizado</option>
                 <option value="Trabajo">Cancelado</option>
               </select>
               <button>
-                <IoIosSearch size="30px" color="#1F1F1F" style={{marginLeft: '30px'}}/>
+                <IoIosSearch
+                  size="30px"
+                  color="#1F1F1F"
+                  style={{ marginLeft: "30px" }}
+                />
               </button>
             </div>
             <button
@@ -108,7 +145,7 @@ function Tasks() {
               <IoAddCircleOutline className="add-icon" size="3rem" />
             </button>
           </div>
-          <TasksList tasks={tasks} openCardEdit = {setCardDescription} />
+          <TasksList tasks={tasks} openCardEdit={setCardDescription} />
         </div>
       </section>
     </div>
