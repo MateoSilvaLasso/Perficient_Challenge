@@ -6,8 +6,8 @@ function Notification() {
     <div className='notification-card'>
         <div className='notification-card__decoration'></div>
         <div className='notification-card__content'>    
-            <h4>Notificacion de ejemplo</h4>
-            <p>Texto de ejemplo</p>
+            <h4>Recordatorio</h4>
+            <p>Proximamente se vencen</p>
         </div>
     </div>
   )

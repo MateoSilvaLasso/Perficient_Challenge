@@ -1,8 +1,21 @@
-import React from "react";
 import "./notifications-styles.css";
 import Notification from "./Notification";
+import { useState, useEffect } from "react";
+import axios from "../config/axios";
 
 function Notifications() {
+
+  const [notifications, setNotifications] = useState();
+
+  useEffect( () => {
+    // axios.get(`/tasks/${vari}`).then((res) => {
+    //   if (res.status === 200) {
+    //     console.log(res.data);
+    //     setTasks(res.data);
+    //   }
+    // });
+  } )
+  
   return (
     <>
       <div className="main-container-notifications">
@@ -13,9 +26,7 @@ function Notifications() {
         <div className="notification-container">
           <Notification />
           <Notification />
-          <Notification />
-          <Notification />
-          <Notification />
+          
         </div>
       </div>
     </>

@@ -29,6 +29,9 @@ function Tasks() {
   let navigate = useNavigate();
   const [addCategoryQuery, setAddCategoryQuery] = useState(false);
 
+  const [nameNewTask, setNameNewTask ] = useState()
+  const [colorNewTask, setColorNewTask] = useState()
+
   useEffect(() => {
     console.log(vari);
 
@@ -89,7 +92,7 @@ function Tasks() {
         />
       ) : null}
 
-      {addTaskVisibility ? (
+      {addCategoryQuery ? (
         <div className="modal-container" id="modal_container">
           <div className="modal-help">
             <div style={{ display: "flex", justifyContent: "flex-end" }}>
@@ -150,12 +153,14 @@ function Tasks() {
                 }}
                 type="text"
                 placeholder="Escribe la categoria"
+                onChange={(e) => setNameNewTask(e.target.value) }
               />
               <input
                 style={{ marginRight: "1rem" }}
                 type="color"
                 name=""
                 id=""
+                onChange={(e) => setColorNewTask(e.target.value)}
               />
             </div>
             <div
@@ -174,14 +179,12 @@ function Tasks() {
                   color: "white",
                 }}
                 onClick={() => {
-                  // () => {
-                  //   axios.post(`/tasks/${vari}`).then((res) => {
-                  //     if (res.status === 200) {
-                  //       console.log(res.data);
-                  //       setTasks(res.data);
-                  //     }
-                  //   });
-                  // };
+                  axios.post(`/category`, {creationTime: new Date(), message: nameNewTask, color: colorNewTask }).then((res) => {
+                    if (res.status === 200) {
+                      console.log(res.data);
+                      navigate("/App");
+                    }
+                  });
                   setAddCategoryQuery(false);
                 }}
               >
@@ -236,6 +239,7 @@ function Tasks() {
                 fontWeight: "600",
               }}
               onClick={() => {
+                axios.post()
                 setAddCategoryQuery(true);
               }}
             >
