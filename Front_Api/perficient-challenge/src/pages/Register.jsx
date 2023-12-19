@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react'
 
 const register = () => {
 
-    const[userRegister, setUserRegister] = useState({userName:"", password:"",firtsName:"",LastName:"", country:""})
+    const[userRegister, setUserRegister] = useState({userName:"", password:"",firtsName:"",LastName:"", country:"",phone:""})
 
     const create = async (user) =>{
         const res = await axios.post("/login/register", user);
