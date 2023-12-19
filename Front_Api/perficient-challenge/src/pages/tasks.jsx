@@ -2,6 +2,8 @@ import React from "react";
 import { useState, useEffect } from "react";
 import TasksList from "../components/tasksList";
 import TaskForm from "../components/TaskForm";
+import { connect } from 'react-redux';
+import axios from  '../config/axios'
 import { data } from "../components/tasks.js";
 import ButtonAppBar from "../components/Header.jsx";
 import { IoAddCircleOutline } from "react-icons/io5";
@@ -9,23 +11,70 @@ import { MdOutlineCancel } from "react-icons/md";
 import Notifications from "../components/Notifications.jsx";
 import { IoIosSearch } from "react-icons/io";
 import CardEdit from "../components/CardEdit.jsx";
+import { useAuth } from '../pages/authContext';
 import "./task-styles.css";
+import store from '../store';
+import {useGlobalState, setGlobalState} from '../index'
+import { useNavigate } from 'react-router-dom';
 import { categories } from '../components/Categories.js'
+
 
 function Tasks() {
   const [tasks, setTasks] = useState([]);
   const [addTaskVisibility, setAddTaskVisibility] = useState(false);
-  const [categoryQuery, setCategoryQuery] = useState();
-  const [stateQuery, setStateQuery] = useState();
-  const [addCategoryQuery, setAddCategoryQuery] = useState(false);
+
+  const [categoryQuery, setCategoryQuery] = useState([]);
+  const [stateQuery, setStateQuery] = useState([]);
   const [cardDescription, setCardDescription] = useState(null);
+  let vari = useGlobalState("name")[0]
+  let navigate = useNavigate();
+  const [addCategoryQuery, setAddCategoryQuery] = useState(false);
 
   useEffect(() => {
-    setTasks(data);
+   
+
+    console.log(vari)
+    
+    axios.get(`/tasks/${vari}`).then(res =>{
+        if(res.status === 200){
+          console.log(res.data)
+          setTasks(res.data)
+        }
+    })
+
+    axios.get("/status").then(res =>{
+      if(res.status === 200){
+        console.log(res.data)
+        setStateQuery(res.data)
+      }
+    })
+
+    axios.get("/category").then(res =>{
+      if(res.status === 200){
+        console.log(res.data)
+        setCategoryQuery(res.data)
+      }
+    })
+
+    //setTasks(data);
   }, []);
 
-  function createTask(task) {
-    setTasks([...tasks, task]);
+  function createTask(task,category,status) {
+    axios.post(`/tasks/${category}/${status}/${vari}`, task).then(res =>{
+      if(res.status === 200){
+          console.log(res.data)
+          navigate("/App")
+      }
+    })
+  }
+
+  const editTask = (task, id,category, status) =>{
+      axios.put(`/tasks/${id}/${category}/${status}`, task).then(res =>{
+        if(res.status === 200){
+          console.log(res.data)
+          navigate("/")
+        }
+      })
   }
 
   useEffect(() => {
@@ -35,11 +84,11 @@ function Tasks() {
 
   return (
     <div>
-      {cardDescription !== null ? (
-        <CardEdit task={cardDescription} closeWindow={setCardDescription} />
-      ) : null}
-
-      {addCategoryQuery ? (
+      {cardDescription !== null? (
+        <CardEdit task = {cardDescription} closeWindow = {setCardDescription} editTask = {editTask}/> 
+      ): null}
+      
+      {addTaskVisibility ? (
         <div className="modal-container" id="modal_container">
         <div className="modal-help">
           <div style={{ display: "flex", justifyContent: "flex-end" }}>
@@ -126,22 +175,22 @@ function Tasks() {
                 <option value="Casa">Titulo</option>
                 <option value="Universidad">Informacion</option>
               </select>
-              <select name="" id="" style={{ marginRight: "20px" }}>
-                <option value="" selected>
-                  Categoria
-                </option>
-                <option value="Casa">Casa</option>
-                <option value="Universidad">Universidad</option>
-                <option value="Trabajo">Trabajo</option>
+              <select name="" id="" style={{marginRight: '20px'}}>
+                <option value="" selected>Categoria</option>
+                {categoryQuery.map((category, index) => (
+                  <option key={index} value={category.id}>
+                    {category.name}
+                  </option>
+                ))}
+                
               </select>
-              <select name="" id="" style={{ marginRight: "20px" }}>
-                <option value="" selected>
-                  Estado
-                </option>
-                <option value="Casa">Por hacer</option>
-                <option value="Universidad">En proceso</option>
-                <option value="Trabajo">Finalizado</option>
-                <option value="Trabajo">Cancelado</option>
+              <select name="" id="" style={{ marginRight: '20px' }}>
+                <option value="" selected>Estado</option>
+                {stateQuery.map((estado, index) => (
+                  <option key={index} value={estado.id}>
+                    {estado.name}
+                  </option>
+                ))}
               </select>
               <button>
                 <IoIosSearch

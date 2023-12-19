@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./task-form-style.css";
 import TextField from "@mui/material/TextField";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -9,37 +9,55 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import { MdOutlineCancel } from "react-icons/md";
 import { categories } from "./Categories";
+import axios from '../config/axios';
 
 function TaskForm({ createTask, closeWindow }) {
   const [title, setTitle] = useState("");
   const [information, setInformation] = useState("");
-  const [finishDate, setfinishDate] = useState(null);
-  const [category, setCategory] = useState("");
-  const [state, setState] = useState("");
+  const [endtask, setEndTask] = useState(null);
+  const [category, setCategory] = useState([]);
+  const [state, setState] = useState([]);
+  const [stateQuery, setStateQuery] = useState("")
+  const [categoryQuery, setCategoryQuery] = useState("")
+
+  useEffect (()=>{
+
+    axios.get("/status").then(res =>{
+      if(res.status === 200){
+        //console.log(res.data)
+        setState(res.data)
+      }
+    })
+
+    axios.get("/category").then(res =>{
+      if(res.status === 200){
+        console.log(res.data)
+        setCategory(res.data)
+      }
+    })
+
+  },[])
 
   const handleSubmit = (e) => {
     console.log("holiii");
     e.preventDefault();
     const newTask = {
-      id: 7,
-      title,
-      information,
-      finishDate: finishDate.toDate(),
-      category,
-      state,
+      title: title,
+      information: information,
+      endtask: endtask.toDate(),
     };
     console.log(newTask);
-    createTask(newTask);
+    createTask(newTask,categoryQuery,stateQuery);
     console.log(closeWindow);
     closeWindow(false);
   };
 
   const handleChangeCategory = (event) => {
-    setCategory(event.target.value);
+    setCategoryQuery(event.target.value);
   };
 
   const handleChangeState = (event) => {
-    setState(event.target.value);
+    setStateQuery(event.target.value);
   };
 
   return (
@@ -74,10 +92,12 @@ function TaskForm({ createTask, closeWindow }) {
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DatePicker
             className="myDatePicker"
-            value={finishDate}
+
+            value={endtask}
+            sx={{ marginBottom: "10px" }}
             onChange={(date) => {
               console.log(Object.prototype.toString.call(date));
-              setfinishDate(date);
+              setEndTask(date);
             }}
           />
         </LocalizationProvider>
@@ -96,9 +116,13 @@ function TaskForm({ createTask, closeWindow }) {
           label="Categoria"
           onChange={handleChangeCategory}
         >
-          <MenuItem value={"Por comprar"}>Por comprar</MenuItem>
-          <MenuItem value={"Universidad"}>Universidad</MenuItem>
-          <MenuItem value={"Trabajo"}>Trabajo</MenuItem>
+
+          <MenuItem value={'Por comprar'}>Por comprar</MenuItem>
+          {category.map((category, index) => (
+            <MenuItem key={index} value={category.id}>
+              {category.name}
+            </MenuItem>
+          ))}
         </Select>
 
         <span>Estado :</span>
@@ -110,9 +134,14 @@ function TaskForm({ createTask, closeWindow }) {
           label="Estado"
           onChange={handleChangeState}
         >
-          <MenuItem value={"Por hacer"}>Por hacer</MenuItem>
-          <MenuItem value={"En proceso"}>En proceso</MenuItem>
-          <MenuItem value={"Finalizado"}>Finalizado</MenuItem>
+          <MenuItem value="" disabled>
+            Estado
+          </MenuItem>
+          {state.map((estado, index) => (
+            <MenuItem key={index} value={estado.id}>
+              {estado.name}
+            </MenuItem>
+          ))}
         </Select>
 
         <span>Archivo: </span>

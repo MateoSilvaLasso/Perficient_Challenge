@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import background from "../img/login.jpeg";
 import login from '../pages/login';
-
+import {useGlobalState, setGlobalState} from '../index'
 
 
 
@@ -55,7 +55,7 @@ const authentication = ({addUser, userEdit}) => {
                     <div class="row">
                         <div class="col-12 mx-auto">
                             <div class="input-group mb-3">
-                                <input type="text" class="form-control form-control rounded-pill" placeholder="User name" onChange={(e)=>{setUserName(e.target.value)}}/>
+                                <input type="text" class="form-control form-control rounded-pill" placeholder="User name" onChange={(e)=>{setUserName(e.target.value),setGlobalState("name",e.target.value)}}/>
                             </div>
                             <div class="input-group mb-3">
                                 <input type="password" class="form-control form-control rounded-pill" placeholder="Password" onChange={(e)=>{setPassword(e.target.value)}}/>

@@ -8,59 +8,59 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
+import axios from  '../config/axios'
 import { MdOutlineCancel } from "react-icons/md";
 
-function CardEdit({ task , closeWindow}) {
+function CardEdit({ task , closeWindow, editTask}) {
   const [title, setTitle] = useState(task.title);
-  const [information, setInformation] = useState("");
-  const [finishDate, setfinishDate] = useState(null);
-  const [category, setCategory] = useState("Universidad");
-  const [state, setState] = useState("");
+  const [information, setInformation] = useState(task.information);
+  const [endtask, setEndTask] = useState(null);
+  const [category, setCategory] = useState([]);
+  const [state, setState] = useState([]);
+  const [stateQuery, setStateQuery] = useState("")
+  const [categoryQuery, setCategoryQuery] = useState("")
+  
 
-  useEffect(() => {
+  useEffect (()=>{
 
-    setfinishDate(task.date)
-
-    for (const option of document.getElementById("categories").options) {
-      if (option.value === task.category) {
-        option.selected = true;
-        break;
+    axios.get("/status").then(res =>{
+      if(res.status === 200){
+        //console.log(res.data)
+        setState(res.data)
       }
-    }
+    })
 
-    for (const option of document.getElementById("states").options) {
-      if (option.value === task.state) {
-        option.selected = true;
-        break;
+    axios.get("/category").then(res =>{
+      if(res.status === 200){
+        //console.log(res.data)
+        setCategory(res.data)
       }
-    }
+    })
 
-    
-  }, []);
+  },[])
 
   const handleSubmit = (e) => {
     console.log("holiii");
     e.preventDefault();
     const newTask = {
-      id: 7,
-      title,
-      information,
-      finishDate: finishDate.toDate(),
-      category,
-      state,
+      title: title,
+      information: information,
+      endtask: endtask.toDate(),
     };
-    
-    
+    console.log(stateQuery)
+    editTask(newTask,task.id,categoryQuery,stateQuery)
     closeWindow(null);
   };
 
   const handleChangeCategory = (event) => {
-    setCategory(event.target.value);
+    setCategoryQuery(event.target.value);
   };
 
   const handleChangeState = (event) => {
-    setState(event.target.value);
+    setStateQuery(event.target.value);
   };
+
+  
 
   return (
     <div className="modal-task-edit">
@@ -88,7 +88,7 @@ function CardEdit({ task , closeWindow}) {
             id="outlined-basic"
             variant="outlined"
             onChange={(e) => setTitle(e.target.value)}
-            value={task.title}
+            label={task.title}
           />
 
           <span>Descripcion :</span>
@@ -99,7 +99,7 @@ function CardEdit({ task , closeWindow}) {
             id="outlined-basic"
             variant="outlined"
             onChange={(e) => setInformation(e.target.value)}
-            value={task.information}
+            label={task.information}
           />
 
           <span>Fecha de finalizacion :</span>
@@ -107,29 +107,50 @@ function CardEdit({ task , closeWindow}) {
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker
               className="myDatePicker"
-              value={finishDate}
+              value={endtask}
               sx={{ marginBottom: "10px" }}
               onChange={(date) => {
                 console.log(Object.prototype.toString.call(date));
-                setfinishDate(date);
+                setEndTask(date);
               }}
             />
           </LocalizationProvider>
 
           <span>Categoria :</span>
-          <select name="category" id="categories">
-            <option value="Por comprar">Por comprar</option>
-            <option value="Universidad">Universidad</option>
-            <option value="Trabajo">Trabajo</option>
-            <option value="Casa">Casa</option>
-          </select>
+          <Select
+          sx={{ marginBottom: "10px" }}
+          labelId="demo-simple-select-label-category"
+          id="demo-simple-select-category"
+          value={category}
+          label="Categoria"
+          onChange={handleChangeCategory}
+        >
+          <MenuItem value={'Por comprar'}>Por comprar</MenuItem>
+          {category.map((category, index) => (
+            <MenuItem key={index} value={category.id}>
+              {category.name}
+            </MenuItem>
+          ))}
+        </Select>
 
           <span>Estado :</span>
-          <select style={{marginBottom: '20px'}} name="states" id="states">
-            <option value="Por hacer">Por hacer</option>
-            <option value="En proceso">En proceso</option>
-            <option value="Finalizado">Finalizado</option>
-          </select>
+          <Select
+          sx={{ marginBottom: "10px" }}
+          labelId="demo-simple-select-label-state"
+          id="demo-simple-select-state"
+          value={state}
+          label="Estado"
+          onChange={handleChangeState}
+        >
+          <MenuItem value="" disabled>
+            Estado
+          </MenuItem>
+          {state.map((estado, index) => (
+            <MenuItem key={index} value={estado.id}>
+              {estado.name}
+            </MenuItem>
+          ))}
+        </Select>
 
           <div style={{display: 'flex', justifyContent: 'space-between'}}>
           <Button style={{width: '45%'}}
